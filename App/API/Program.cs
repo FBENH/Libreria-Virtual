@@ -1,4 +1,6 @@
+using API.Services;
 using LibreriaVirtualData.Library.Context;
+using LibreriaVirtualData.Library.Data;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,6 +16,9 @@ builder.Services.AddDbContext<LibreriaContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DbLibreria"));
 });
+
+builder.Services.AddTransient<IUsuarioData, UsuarioData>();
+builder.Services.AddTransient<IUsuarioService, UsuarioService>();
 
 var app = builder.Build();
 
