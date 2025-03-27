@@ -16,9 +16,8 @@ namespace LibreriaVirtualData.Library.Models
         public string? Opinion { get; set; }
         [Required]
         public DateTime Fecha { get; set; } = DateTime.UtcNow;
-        [Required]
-        [Range(1, 5)]
-        public int Calificacion { get; set; }
+        [Required]        
+        public Calificacion Calificacion { get; set; }
         [Required]
         public Guid IdUsuario { get; set; }
         [ForeignKey("IdUsuario")]
@@ -27,5 +26,14 @@ namespace LibreriaVirtualData.Library.Models
         public int IdLibro { get; set; }
         [ForeignKey("IdLibro")]
         public virtual Libro Libro { get; set; }
+    }
+
+    public enum Calificacion
+    {
+        MuyMalo = 1,
+        Malo = 2,
+        Regular = 3,
+        Bueno = 4,
+        Excelente = 5
     }
 }
