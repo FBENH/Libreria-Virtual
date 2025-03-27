@@ -1,3 +1,4 @@
+using API.Middlewares;
 using API.Services;
 using LibreriaVirtualData.Library.Context;
 using LibreriaVirtualData.Library.Data;
@@ -19,6 +20,7 @@ builder.Services.AddDbContext<LibreriaContext>(options =>
 
 builder.Services.AddTransient<IUsuarioData, UsuarioData>();
 builder.Services.AddTransient<IUsuarioService, UsuarioService>();
+builder.Services.AddTransient<ManejadorExcepcionesMiddleware>();
 
 var app = builder.Build();
 
@@ -38,6 +40,8 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+
+app.UseMiddleware<ManejadorExcepcionesMiddleware>();
 
 app.MapControllers();
 

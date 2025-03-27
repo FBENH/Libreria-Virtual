@@ -22,18 +22,11 @@ namespace API.Controllers
         public async Task<IActionResult> RegistrarUsuario([FromBody] UsuarioRegistroDTO usuario)
         {
             var respuesta = new Respuesta();
-            try
-            {
-                await _servicioUsuarios.RegistrarUsuario(usuario);
-                respuesta.exito = 1;
-                respuesta.mensaje = "Se registró el usuario exitosamente."; //TODO traer mensajes de configuracion
-                return Ok(respuesta);
-            }
-            catch (Exception ex)
-            {
-                respuesta.mensaje = ex.Message;
-                return BadRequest(respuesta);
-            }
+                            
+            await _servicioUsuarios.RegistrarUsuario(usuario);
+            respuesta.exito = 1;
+            respuesta.mensaje = "Se registró el usuario exitosamente."; //TODO traer mensajes de configuracion
+            return Ok(respuesta);          
         }
     }
 }

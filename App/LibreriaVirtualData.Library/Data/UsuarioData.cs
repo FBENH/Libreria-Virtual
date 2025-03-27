@@ -17,24 +17,9 @@ namespace LibreriaVirtualData.Library.Data
         }
 
         public async Task RegistrarUsuario(Usuario usuario)
-        {
-            var nuevoUsuario = new Usuario
-            {
-                Nombre = usuario.Nombre,
-                Email = usuario.Email,
-                UrlFoto = usuario.UrlFoto
-            };
-
-            try
-            {
-                await _context.Usuarios.AddAsync(nuevoUsuario);
-                await _context.SaveChangesAsync();
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
+        {            
+            await _context.Usuarios.AddAsync(usuario);
+            await _context.SaveChangesAsync();          
         }
     }
 }
