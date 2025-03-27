@@ -1,5 +1,6 @@
 ﻿
 using API.Models.Respuesta;
+using LibreriaVirtualData.Library.Exceptions;
 using System.Net;
 
 namespace API.Middlewares
@@ -26,11 +27,26 @@ namespace API.Middlewares
 
         private async Task ManejarExcepcionAsync(HttpContext context, Exception exception)
         {
-            context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+            int statusCode;
+            string mensaje;
+
+            switch (exception)
+            {
+                case UsuarioNotFoundException:
+                    statusCode = (int)HttpStatusCode.NotFound;
+                    mensaje = exception.Message;
+                    break;
+                default:
+                    statusCode = (int)HttpStatusCode.InternalServerError;
+                    mensaje = "Error en el servidor."; //TODO traer mensaje desde configuracion
+                    break;
+            }
+
+            context.Response.StatusCode = statusCode;
             context.Response.ContentType = "application/json";
             var respuesta = new Respuesta
             {
-                mensaje = "Error en el servidor." //TODO traer mensaje desde configuracion
+                mensaje = mensaje
             };
 
             await context.Response.WriteAsJsonAsync(respuesta);

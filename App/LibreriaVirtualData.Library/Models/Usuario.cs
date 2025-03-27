@@ -21,6 +21,7 @@ namespace LibreriaVirtualData.Library.Models
         public string Email { get; set; }
 
         public string? UrlFoto { get; set; }
+        public bool Activo { get; set; } = true;
 
         public virtual ICollection<Review> Reviews { get; set; } = new List<Review>();
     }

@@ -28,5 +28,29 @@ namespace API.Controllers
             respuesta.mensaje = "Se registró el usuario exitosamente."; //TODO traer mensajes de configuracion
             return Ok(respuesta);          
         }
+
+        [HttpPatch]
+        [Route("users/{userId}")]
+        public async Task<IActionResult> CambiarUrlFoto([FromBody] ActualizarUrlUsuarioDTO url, [FromRoute] Guid userId)
+        {
+            var respuesta = new Respuesta();
+
+            await _servicioUsuarios.ActualizarFoto(userId, url);
+            respuesta.exito = 1;
+            respuesta.mensaje = "Se actualizó la foto del usuario";//TODO traer mensajes de configuracion
+            return Ok(respuesta);
+        }
+
+        [HttpDelete]
+        [Route("users/{userId}")]
+        public async Task<IActionResult> EliminarUsuario([FromRoute] Guid userId)
+        {
+            var respuesta = new Respuesta();
+
+            await _servicioUsuarios.EliminarUsuario(userId);
+            respuesta.exito = 1;
+            respuesta.mensaje = "Se eliminó el usuario";//TODO traer mensajes de configuracion
+            return Ok(respuesta);
+        }
     }
 }

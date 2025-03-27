@@ -23,5 +23,15 @@ namespace API.Services
 
             await _repositorioUsuarios.RegistrarUsuario(nuevoUsuario);
         }
+
+        public async Task ActualizarFoto(Guid idUsuario, ActualizarUrlUsuarioDTO url)
+        {
+            await _repositorioUsuarios.CambiarFotoUsuario(idUsuario, url.Url);
+        }
+
+        public async Task EliminarUsuario(Guid idUsuario)
+        {
+            await _repositorioUsuarios.EliminarUsuario(idUsuario);
+        }
     }
 }
