@@ -1,11 +1,14 @@
-﻿using LibreriaVirtualData.Library.Models;
+﻿using LibreriaVirtualData.Library.Data.Helpers;
+using LibreriaVirtualData.Library.Models;
 
 namespace LibreriaVirtualData.Library.Data
 {
     public interface IUsuarioData
     {
-        Task RegistrarUsuario(Usuario usuario);
-        Task CambiarFotoUsuario(Guid idUsuario, string url);
-        Task EliminarUsuario(Guid idUsuario);
+        Task<ResultadoOperacion> RegistrarUsuario(Usuario usuario);
+        Task<ResultadoOperacion> CambiarFotoUsuario(Guid idUsuario, string url);
+        Task<ResultadoOperacion> EliminarUsuario(Guid idUsuario);
+        Task<ResultadoOperacion> SuscribirseAutor(Guid idUsuario, int idAutor);
+        Task<ResultadoOperacion> EliminarSuscripcion(Guid idUsuario, int idAutor);
     }
 }

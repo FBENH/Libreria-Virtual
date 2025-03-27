@@ -1,51 +1,118 @@
 ﻿using LibreriaVirtualData.Library.Context;
-using LibreriaVirtualData.Library.Exceptions;
 using LibreriaVirtualData.Library.Models;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using LibreriaVirtualData.Library.Data.Helpers;
+using System.Net;
 
 namespace LibreriaVirtualData.Library.Data
 {
     public class UsuarioData : IUsuarioData
     {
         private readonly LibreriaContext _context;
-        public UsuarioData(LibreriaContext context)
+        private readonly IDataHelper _dataHelper;
+        public UsuarioData(LibreriaContext context, IDataHelper dataHelper)
         {
             _context = context;
+            _dataHelper = dataHelper;
         }
 
-        public async Task RegistrarUsuario(Usuario usuario)
-        {            
-            await _context.Usuarios.AddAsync(usuario);
-            await _context.SaveChangesAsync();          
-        }
-
-        public async Task CambiarFotoUsuario(Guid idUsuario, string url)
+        public async Task<ResultadoOperacion> RegistrarUsuario(Usuario usuario)
         {
-            var usuario = await BuscarUsuario(idUsuario);
-            usuario.UrlFoto = url;
-            _context.SaveChanges();
-        }
-
-        private async Task<Usuario> BuscarUsuario(Guid idUsuario)
-        {
-            var usuario = await _context.Usuarios.Where(u => u.Id == idUsuario && u.Activo).FirstOrDefaultAsync();
-            if (usuario == null)
+            var resultado = new ResultadoOperacion();
+            var us = _context.Usuarios.Where(u => u.Id == usuario.Id);
+            if (us != null)
             {
-                throw new UsuarioNotFoundException(idUsuario.ToString());
+                resultado.Errores.Add($"Ya existe un usuario con el id {usuario.Id}");
+                resultado.StatusCode = HttpStatusCode.Conflict;
+                return resultado;
             }
-            return usuario;
+            await _context.Usuarios.AddAsync(usuario);
+            await _context.SaveChangesAsync();
+            resultado.Exito = true;
+            return resultado;
         }
 
-        public async Task EliminarUsuario(Guid idUsuario)
+        public async Task<ResultadoOperacion> CambiarFotoUsuario(Guid idUsuario, string url)
         {
-            var usuario = await BuscarUsuario(idUsuario);
+            var resultado = new ResultadoOperacion();
+            var usuario = await _dataHelper.BuscarUsuario(idUsuario);
+            if (usuario == null)
+            {                
+                resultado.Errores.Add($"No se encontró un usuario con id {idUsuario}");
+                resultado.StatusCode = HttpStatusCode.NotFound;
+                return resultado;
+            }            
+            usuario.UrlFoto = url;
+            await _context.SaveChangesAsync();
+            resultado.Exito = true;
+            return resultado;
+        }      
+
+        public async Task<ResultadoOperacion> EliminarUsuario(Guid idUsuario)
+        {
+            var resultado = new ResultadoOperacion();
+            var usuario = await _dataHelper.BuscarUsuario(idUsuario);
+            if (usuario == null)
+            {                
+                resultado.Errores.Add($"No se encontró el usuario con id {idUsuario}");
+                resultado.StatusCode = HttpStatusCode.NotFound;
+                return resultado;
+            }
             usuario.Activo = false;
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
+            resultado.Exito = true;
+            return resultado;
+        }
+
+        public async Task<ResultadoOperacion> SuscribirseAutor(Guid idUsuario, int idAutor)
+        {
+            var resultado = new ResultadoOperacion();
+            var usuario = await _dataHelper.BuscarUsuario(idUsuario);
+            if (usuario == null)            {
+                
+                resultado.Errores.Add($"No se encontró el usuario con id {idUsuario}");
+                resultado.StatusCode = HttpStatusCode.NotFound;
+                return resultado;
+            }
+            var autor = await _dataHelper.BuscarAutor(idAutor);
+            if (autor == null)
+            {
+                resultado.Errores.Add($"No se encontró el autor con id {idAutor}");
+                resultado.StatusCode = HttpStatusCode.NotFound;
+                return resultado;
+            }
+            var suscripcion = new Suscripcion
+            {
+                IdAutor = autor.Id,
+                IdUsuario = usuario.Id
+            };
+            bool existe = await _dataHelper.YaExisteSuscripcion(idUsuario, idAutor);
+            if (existe)
+            {
+                resultado.Errores.Add($"El usuario con id {idUsuario} ya esta suscripto al autor con id {idAutor}");
+                resultado.StatusCode = HttpStatusCode.Conflict;
+                return resultado;
+            }
+            await _context.Susripciones.AddAsync(suscripcion);
+            await _context.SaveChangesAsync();
+            resultado.Exito = true;
+            return resultado;
+        }
+
+        public async Task<ResultadoOperacion> EliminarSuscripcion(Guid idUsuario, int idAutor)
+        {
+            var resultado = new ResultadoOperacion();
+            var suscripcion = await _dataHelper.BuscarSuscripcion(idUsuario, idAutor);
+            if (suscripcion == null)
+            {
+                resultado.Errores.Add($"No se encontró una suscripción de un usuario con id {idUsuario} a un autor con id {idAutor}");
+                resultado.StatusCode = HttpStatusCode.NotFound;
+                return resultado;
+            }
+            _context.Susripciones.Remove(suscripcion);
+            await _context.SaveChangesAsync();
+            resultado.Exito = true;
+            return resultado;
+            
         }
     }
 }

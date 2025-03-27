@@ -22,7 +22,7 @@ namespace LibreriaVirtualData.Library.Models
 
         public string? UrlFoto { get; set; }
         public bool Activo { get; set; } = true;
-
+        public DateTime FechaRegistro { get; set; } = DateTime.UtcNow;
         public virtual ICollection<Review> Reviews { get; set; } = new List<Review>();
     }
 }

@@ -1,5 +1,6 @@
 ﻿using API.Models.DTO;
 using LibreriaVirtualData.Library.Data;
+using LibreriaVirtualData.Library.Data.Helpers;
 using LibreriaVirtualData.Library.Models;
 
 namespace API.Services
@@ -12,7 +13,7 @@ namespace API.Services
         {
             _repositorioUsuarios = repositorioUsuarios;
         }
-        public async Task RegistrarUsuario(UsuarioRegistroDTO usuario)
+        public async Task<ResultadoOperacion> RegistrarUsuario(UsuarioRegistroDTO usuario)
         {
             var nuevoUsuario = new Usuario
             {
@@ -21,17 +22,32 @@ namespace API.Services
                 UrlFoto = usuario.UrlFoto
             };
 
-            await _repositorioUsuarios.RegistrarUsuario(nuevoUsuario);
+            ResultadoOperacion resultado = await _repositorioUsuarios.RegistrarUsuario(nuevoUsuario);
+            return resultado;
         }
 
-        public async Task ActualizarFoto(Guid idUsuario, ActualizarUrlUsuarioDTO url)
+        public async Task<ResultadoOperacion> ActualizarFoto(Guid idUsuario, ActualizarUrlUsuarioDTO url)
         {
-            await _repositorioUsuarios.CambiarFotoUsuario(idUsuario, url.Url);
+            ResultadoOperacion resultado = await _repositorioUsuarios.CambiarFotoUsuario(idUsuario, url.Url);
+            return resultado;
         }
 
-        public async Task EliminarUsuario(Guid idUsuario)
+        public async Task<ResultadoOperacion> EliminarUsuario(Guid idUsuario)
         {
-            await _repositorioUsuarios.EliminarUsuario(idUsuario);
+            ResultadoOperacion resultado = await _repositorioUsuarios.EliminarUsuario(idUsuario);
+            return resultado;
+        }
+
+        public async Task<ResultadoOperacion> SuscribirseAutor(Guid idUsuario, int idAutor)
+        {
+            ResultadoOperacion resultado = await _repositorioUsuarios.SuscribirseAutor(idUsuario, idAutor);
+            return resultado;
+        }
+
+        public async Task<ResultadoOperacion> EliminarSuscripcion(Guid idUsuario, int idAutor)
+        {
+            ResultadoOperacion resultado = await _repositorioUsuarios.EliminarSuscripcion(idUsuario, idAutor);
+            return resultado;
         }
     }
 }

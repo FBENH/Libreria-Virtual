@@ -2,6 +2,7 @@ using API.Middlewares;
 using API.Services;
 using LibreriaVirtualData.Library.Context;
 using LibreriaVirtualData.Library.Data;
+using LibreriaVirtualData.Library.Data.Helpers;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -20,7 +21,9 @@ builder.Services.AddDbContext<LibreriaContext>(options =>
 
 builder.Services.AddTransient<IUsuarioData, UsuarioData>();
 builder.Services.AddTransient<IUsuarioService, UsuarioService>();
+builder.Services.AddTransient<IDataHelper, DataHelper>();
 builder.Services.AddTransient<ManejadorExcepcionesMiddleware>();
+builder.Services.AddTransient<ManejarRespuestaDeErrorService>();
 
 var app = builder.Build();
 

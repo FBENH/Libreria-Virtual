@@ -1,6 +1,5 @@
 ﻿
 using API.Models.Respuesta;
-using LibreriaVirtualData.Library.Exceptions;
 using System.Net;
 
 namespace API.Middlewares
@@ -31,11 +30,7 @@ namespace API.Middlewares
             string mensaje;
 
             switch (exception)
-            {
-                case UsuarioNotFoundException:
-                    statusCode = (int)HttpStatusCode.NotFound;
-                    mensaje = exception.Message;
-                    break;
+            {                
                 default:
                     statusCode = (int)HttpStatusCode.InternalServerError;
                     mensaje = "Error en el servidor."; //TODO traer mensaje desde configuracion

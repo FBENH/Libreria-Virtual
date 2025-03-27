@@ -9,6 +9,7 @@ namespace LibreriaVirtualData.Library.Context
         public DbSet<Autor> Autores { get; set; }
         public DbSet<Libro> Libros { get; set; }
         public DbSet<Review> Reviews { get; set; }
+        public DbSet<Suscripcion> Susripciones { get; set; }
 
         public LibreriaContext(DbContextOptions<LibreriaContext> options)
             : base(options)
