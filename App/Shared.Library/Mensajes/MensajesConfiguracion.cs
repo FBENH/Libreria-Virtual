@@ -23,5 +23,6 @@ namespace Shared.Library.Mensajes.Mensajes
         public string UsuarioYaSuscripto { get; set; }
         public string SuscripcionNoExiste { get; set; }
         public string LibrosListado { get; set; }
+        public string LibroIngresar { get; set; }
     }
 }

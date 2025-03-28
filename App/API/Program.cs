@@ -25,6 +25,7 @@ builder.Services.AddSingleton<MensajesService>();
 
 builder.Services.AddTransient<IUsuarioData, UsuarioData>();
 builder.Services.AddTransient<IUsuarioService, UsuarioService>();
+builder.Services.AddSingleton<IEmailSender, EmailSender>();
 builder.Services.AddTransient<IAutorData, AutorData>();
 builder.Services.AddTransient<IAutorService, AutorService>();
 builder.Services.AddTransient<ILibroService, LibroService>();

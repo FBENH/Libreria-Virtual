@@ -35,6 +35,7 @@ namespace Shared.Library.Mensajes.Mensajes
                 Mensajes.UsuarioYaSuscripto => _mensajes.UsuarioYaSuscripto,
                 Mensajes.SuscripcionNoExiste => _mensajes.SuscripcionNoExiste,
                 Mensajes.LibrosListado => _mensajes.LibrosListado,
+                Mensajes.LibroIngresar => _mensajes.LibroIngresar,
                 _ => ""
             };
 

@@ -1,9 +1,11 @@
 ﻿using LibreriaVirtualData.Library.Context;
 using LibreriaVirtualData.Library.Data.Helpers;
+using LibreriaVirtualData.Library.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Shared.Library.DTO;
 using Shared.Library.Mensajes.Mensajes;
+using System.Net;
 
 namespace LibreriaVirtualData.Library.Data
 {
@@ -11,11 +13,13 @@ namespace LibreriaVirtualData.Library.Data
     {
         private readonly LibreriaContext _context;
         private readonly MensajesService _mensajes;
+        private readonly IDataHelper _dataHelper;
 
-        public LibroData(LibreriaContext context, MensajesService mensajes)
+        public LibroData(LibreriaContext context, MensajesService mensajes, IDataHelper dataHelper)
         {
             _context = context;
             _mensajes = mensajes;
+            _dataHelper = dataHelper;
         }
         public async Task<ResultadoOperacion> BuscarLibros(BuscarLibrosDTO queryDto)
         {
@@ -60,6 +64,39 @@ namespace LibreriaVirtualData.Library.Data
             resultado.Data = libros;
             return resultado;
 
+        }
+
+        public async Task<ResultadoOperacion> IngresarLibro(int idAutor, IngresarLibroDTO libroDto)
+        {
+            ResultadoOperacion resultado = new ResultadoOperacion();
+
+            Autor? a = await _context.Autores
+                .Include(a => a.Suscripciones)
+                .ThenInclude(s => s.Usuario)
+                .Where(a => a.Id == idAutor).FirstOrDefaultAsync();
+            if (a == null)
+            {
+                resultado.Errores.Add(_mensajes.GetMensaje(Mensajes.AutorNoExiste, idAutor));
+                resultado.StatusCode = HttpStatusCode.NotFound;
+                return resultado;
+            }
+
+            Libro libro = new Libro
+            {
+                Titulo = libroDto.Titulo,
+                Editorial = libroDto.Editorial,
+                Paginas = libroDto.Paginas,
+                FechaPublicacion = libroDto.FechaPublicacion,
+                ISBN = libroDto.ISBN,
+                Url = libroDto.Url,
+                IdAutor = a.Id,                
+            };
+
+            await _context.Libros.AddAsync(libro);
+            await _context.SaveChangesAsync();
+            resultado.Exito = true;
+            resultado.Data.Add(a);
+            return resultado;
         }
     }
 }

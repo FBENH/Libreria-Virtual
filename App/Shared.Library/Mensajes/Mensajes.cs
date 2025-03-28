@@ -22,6 +22,7 @@ namespace Shared.Library.Mensajes.Mensajes
         UsuarioNoExiste,
         UsuarioYaSuscripto,
         SuscripcionNoExiste,
-        LibrosListado
+        LibrosListado,
+        LibroIngresar
     }
 }
