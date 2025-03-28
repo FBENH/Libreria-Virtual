@@ -2,13 +2,8 @@
 using LibreriaVirtualData.Library.Data.Helpers;
 using LibreriaVirtualData.Library.Models;
 using Microsoft.EntityFrameworkCore;
-using Shared.Library;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using Shared.Library.Mensajes.Mensajes;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LibreriaVirtualData.Library.Data
 {
@@ -25,7 +20,7 @@ namespace LibreriaVirtualData.Library.Data
             _mensajes = mensajes;
         }
 
-        public async Task<ResultadoOperacion> RegistrarAutor(Autor autor)
+        public async Task<ResultadoOperacion> RegistrarAutor(Autor autor) //TODO refactor usar DTO
         {
             ResultadoOperacion resultado = new ResultadoOperacion();
             Autor a = await _dataHelper.BuscarAutor(autor.Id);

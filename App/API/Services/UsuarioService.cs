@@ -1,7 +1,7 @@
-﻿using API.Models.DTO;
-using LibreriaVirtualData.Library.Data;
+﻿using LibreriaVirtualData.Library.Data;
 using LibreriaVirtualData.Library.Data.Helpers;
 using LibreriaVirtualData.Library.Models;
+using Shared.Library.DTO;
 
 namespace API.Services
 {

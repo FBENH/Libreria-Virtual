@@ -3,7 +3,7 @@ using LibreriaVirtualData.Library.Models;
 using LibreriaVirtualData.Library.Data.Helpers;
 using System.Net;
 using Microsoft.EntityFrameworkCore;
-using Shared.Library;
+using Shared.Library.Mensajes.Mensajes;
 
 namespace LibreriaVirtualData.Library.Data
 {
@@ -20,7 +20,7 @@ namespace LibreriaVirtualData.Library.Data
             _mensajes = mensajes;
         }
 
-        public async Task<ResultadoOperacion> RegistrarUsuario(Usuario usuario)
+        public async Task<ResultadoOperacion> RegistrarUsuario(Usuario usuario)  //TODO refactor usar DTO
         {
             ResultadoOperacion resultado = new ResultadoOperacion();
             Usuario? us = await _context.Usuarios.Where(u => u.Id == usuario.Id).FirstOrDefaultAsync();

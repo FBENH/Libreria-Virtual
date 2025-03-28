@@ -30,6 +30,8 @@ namespace LibreriaVirtualData.Library.Models
         public DateTime FechaPublicacion { get; set; }
         [Required]
         public int IdAutor { get; set; }
+        [Range(1,5)]
+        public decimal? Calificacion { get; set; }
         [ForeignKey("IdAutor")]
         public virtual Autor Autor { get; set; }
 

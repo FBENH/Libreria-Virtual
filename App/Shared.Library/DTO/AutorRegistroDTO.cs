@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace API.Models.DTO
+namespace Shared.Library.DTO
 {
     public class AutorRegistroDTO
     {

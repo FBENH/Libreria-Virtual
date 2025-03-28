@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Shared.Library
+namespace Shared.Library.Mensajes.Mensajes
 {
     public class MensajesService
     {
@@ -34,6 +34,7 @@ namespace Shared.Library
                 Mensajes.UsuarioNoExiste => _mensajes.UsuarioNoExiste,
                 Mensajes.UsuarioYaSuscripto => _mensajes.UsuarioYaSuscripto,
                 Mensajes.SuscripcionNoExiste => _mensajes.SuscripcionNoExiste,
+                Mensajes.LibrosListado => _mensajes.LibrosListado,
                 _ => ""
             };
 

@@ -4,7 +4,7 @@ using LibreriaVirtualData.Library.Context;
 using LibreriaVirtualData.Library.Data;
 using LibreriaVirtualData.Library.Data.Helpers;
 using Microsoft.EntityFrameworkCore;
-using Shared.Library;
+using Shared.Library.Mensajes.Mensajes;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,6 +27,8 @@ builder.Services.AddTransient<IUsuarioData, UsuarioData>();
 builder.Services.AddTransient<IUsuarioService, UsuarioService>();
 builder.Services.AddTransient<IAutorData, AutorData>();
 builder.Services.AddTransient<IAutorService, AutorService>();
+builder.Services.AddTransient<ILibroService, LibroService>();
+builder.Services.AddTransient<ILibroData, LibroData>();
 builder.Services.AddTransient<IDataHelper, DataHelper>();
 builder.Services.AddTransient<ManejadorExcepcionesMiddleware>();
 builder.Services.AddTransient<ManejarRespuestaDeErrorService>();

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Shared.Library
+namespace Shared.Library.Mensajes.Mensajes
 {
     public enum Mensajes
     {
@@ -21,6 +21,7 @@ namespace Shared.Library
         UsuarioYaExiste,
         UsuarioNoExiste,
         UsuarioYaSuscripto,
-        SuscripcionNoExiste
+        SuscripcionNoExiste,
+        LibrosListado
     }
 }

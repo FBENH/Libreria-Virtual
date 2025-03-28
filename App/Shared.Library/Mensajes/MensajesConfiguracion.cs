@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Shared.Library
+namespace Shared.Library.Mensajes.Mensajes
 {
     public class MensajesConfiguracion
     {
@@ -22,5 +22,6 @@ namespace Shared.Library
         public string UsuarioNoExiste { get; set; }
         public string UsuarioYaSuscripto { get; set; }
         public string SuscripcionNoExiste { get; set; }
+        public string LibrosListado { get; set; }
     }
 }
