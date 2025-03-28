@@ -26,5 +26,6 @@ namespace LibreriaVirtualData.Library.Models
         public DateTime FechaNacimiento { get; set; }
 
         public virtual ICollection<Libro> Libros { get; set; } = new List<Libro>();
+        public virtual ICollection<Suscripcion> Suscripciones { get; set; } = new List<Suscripcion>();
     }
 }

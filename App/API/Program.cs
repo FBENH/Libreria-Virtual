@@ -21,6 +21,8 @@ builder.Services.AddDbContext<LibreriaContext>(options =>
 
 builder.Services.AddTransient<IUsuarioData, UsuarioData>();
 builder.Services.AddTransient<IUsuarioService, UsuarioService>();
+builder.Services.AddTransient<IAutorData, AutorData>();
+builder.Services.AddTransient<IAutorService, AutorService>();
 builder.Services.AddTransient<IDataHelper, DataHelper>();
 builder.Services.AddTransient<ManejadorExcepcionesMiddleware>();
 builder.Services.AddTransient<ManejarRespuestaDeErrorService>();

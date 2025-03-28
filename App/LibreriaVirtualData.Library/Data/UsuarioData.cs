@@ -19,7 +19,7 @@ namespace LibreriaVirtualData.Library.Data
         public async Task<ResultadoOperacion> RegistrarUsuario(Usuario usuario)
         {
             var resultado = new ResultadoOperacion();
-            var us = _context.Usuarios.Where(u => u.Id == usuario.Id);
+            var us = await _context.Usuarios.Where(u => u.Id == usuario.Id).FirstOrDefaultAsync();
             if (us != null)
             {
                 resultado.Errores.Add($"Ya existe un usuario con el id {usuario.Id}");
