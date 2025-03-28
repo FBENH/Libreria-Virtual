@@ -24,5 +24,6 @@ namespace LibreriaVirtualData.Library.Models
         public bool Activo { get; set; } = true;
         public DateTime FechaRegistro { get; set; } = DateTime.UtcNow;
         public virtual ICollection<Review> Reviews { get; set; } = new List<Review>();
+        public virtual ICollection<Suscripcion> Suscripciones { get; set; } = new List<Suscripcion>();
     }
 }

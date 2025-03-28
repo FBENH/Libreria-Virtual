@@ -12,6 +12,7 @@ namespace LibreriaVirtualData.Library.Data.Helpers
         public bool Exito { get; set; } = false;
         public HttpStatusCode StatusCode { get; set; }
         public List<string> Errores { get; set; } = new List<string>();
+        public List<object> Data { get; set; } = new List<object>();
 
         public string TextoErrores()
         {

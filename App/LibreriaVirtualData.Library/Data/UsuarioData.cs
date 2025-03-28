@@ -2,6 +2,7 @@
 using LibreriaVirtualData.Library.Models;
 using LibreriaVirtualData.Library.Data.Helpers;
 using System.Net;
+using Microsoft.EntityFrameworkCore;
 
 namespace LibreriaVirtualData.Library.Data
 {
@@ -113,6 +114,29 @@ namespace LibreriaVirtualData.Library.Data
             resultado.Exito = true;
             return resultado;
             
+        }
+
+        public async Task<ResultadoOperacion> ListadoDeUsuarios(int offset, int limit)
+        {
+            var resultado = new ResultadoOperacion();
+            var usuarios = await _context.Usuarios
+                .Include(u => u.Suscripciones)
+                .OrderBy(u => u.FechaRegistro)
+                .Skip(offset)
+                .Take(limit)
+                .Select(u => new
+                {
+                    Id = u.Id,
+                    Nombre = u.Nombre,
+                    Email = u.Email,
+                    Imagen = u.UrlFoto,
+                    FechaRegistro = u.FechaRegistro,
+                    CantidadAutoresSuscritos = u.Suscripciones.Count
+                })
+                .ToListAsync<object>();
+            resultado.Exito = true;
+            resultado.Data = usuarios;
+            return resultado;
         }
     }
 }

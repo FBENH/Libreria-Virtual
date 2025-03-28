@@ -3,6 +3,7 @@ using API.Models.Respuesta;
 using API.Services;
 using LibreriaVirtualData.Library.Data.Helpers;
 using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
 using System.Net;
 
 namespace API.Controllers
@@ -118,7 +119,24 @@ namespace API.Controllers
                 respuesta.mensaje = resultado.TextoErrores();
                 return _servicioRespuesta.ManejarRespuestaDeError(resultado, respuesta);
             }            
-        }        
+        }
+
+        [HttpGet]        
+        public async Task<IActionResult> ListadoDeUsuarios([FromQuery, Required, Range(0,int.MaxValue)] int offset,
+            [FromQuery, Required, Range(0, int.MaxValue)] int limit)
+        {
+            var respuesta = new Respuesta();
+            var resultado = await _servicioUsuarios.ListadoDeUsuarios(offset, limit);
+            
+            respuesta.exito = 1;
+            respuesta.mensaje = "Éxito al obtener listado.";
+            respuesta.data = new
+            {
+                TotalDeUsuarios = resultado.Data?.Count(),
+                Usuarios = resultado.Data
+            };
+            return Ok(respuesta);       
+        }
 
     }
 }

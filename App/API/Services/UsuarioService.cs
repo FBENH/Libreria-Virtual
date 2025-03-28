@@ -49,5 +49,11 @@ namespace API.Services
             ResultadoOperacion resultado = await _repositorioUsuarios.EliminarSuscripcion(idUsuario, idAutor);
             return resultado;
         }
+
+        public async Task<ResultadoOperacion> ListadoDeUsuarios(int offset, int limit)
+        {
+            ResultadoOperacion resultado = await _repositorioUsuarios.ListadoDeUsuarios(offset, limit);
+            return resultado;
+        }
     }
 }

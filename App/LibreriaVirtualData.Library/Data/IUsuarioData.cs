@@ -10,5 +10,6 @@ namespace LibreriaVirtualData.Library.Data
         Task<ResultadoOperacion> EliminarUsuario(Guid idUsuario);
         Task<ResultadoOperacion> SuscribirseAutor(Guid idUsuario, int idAutor);
         Task<ResultadoOperacion> EliminarSuscripcion(Guid idUsuario, int idAutor);
+        Task<ResultadoOperacion> ListadoDeUsuarios(int offset, int limit);
     }
 }
