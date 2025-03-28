@@ -14,14 +14,14 @@ namespace API.Services
         }
         public async Task<ResultadoOperacion> RegistrarAutor(AutorRegistroDTO autor)
         {
-            var nuevoAutor = new Autor
+            Autor nuevoAutor = new Autor
             {
                 Nombre = autor.Nombre,
                 Nacionalidad = autor.Nacionalidad,
                 FechaNacimiento = autor.FechaNacimiento
             };
 
-            var resultado = await _repositorioAutores.RegistrarAutor(nuevoAutor);
+            ResultadoOperacion resultado = await _repositorioAutores.RegistrarAutor(nuevoAutor);
             return resultado;
         }
 

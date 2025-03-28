@@ -4,6 +4,7 @@ using LibreriaVirtualData.Library.Context;
 using LibreriaVirtualData.Library.Data;
 using LibreriaVirtualData.Library.Data.Helpers;
 using Microsoft.EntityFrameworkCore;
+using Shared.Library;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,6 +19,9 @@ builder.Services.AddDbContext<LibreriaContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DbLibreria"));
 });
+
+builder.Services.Configure<MensajesConfiguracion>(builder.Configuration.GetSection("Mensajes"));
+builder.Services.AddSingleton<MensajesService>();
 
 builder.Services.AddTransient<IUsuarioData, UsuarioData>();
 builder.Services.AddTransient<IUsuarioService, UsuarioService>();

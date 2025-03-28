@@ -39,7 +39,7 @@ namespace API.Middlewares
 
             context.Response.StatusCode = statusCode;
             context.Response.ContentType = "application/json";
-            var respuesta = new Respuesta
+            Respuesta respuesta = new Respuesta
             {
                 mensaje = mensaje
             };

@@ -2,6 +2,7 @@
 using LibreriaVirtualData.Library.Data.Helpers;
 using LibreriaVirtualData.Library.Models;
 using Microsoft.EntityFrameworkCore;
+using Shared.Library;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,10 +16,13 @@ namespace LibreriaVirtualData.Library.Data
     {
         private readonly LibreriaContext _context;
         private readonly IDataHelper _dataHelper;
-        public AutorData(LibreriaContext context, IDataHelper dataHelper)
+        private readonly MensajesService _mensajes;
+        public AutorData(LibreriaContext context, 
+            IDataHelper dataHelper, MensajesService mensajes)
         {
             _context = context;
             _dataHelper = dataHelper;
+            _mensajes = mensajes;
         }
 
         public async Task<ResultadoOperacion> RegistrarAutor(Autor autor)
@@ -27,7 +31,7 @@ namespace LibreriaVirtualData.Library.Data
             Autor a = await _dataHelper.BuscarAutor(autor.Id);
             if (a != null)
             {
-                resultado.Errores.Add($"Ya existe un autor registrado con el id {autor.Id}");
+                resultado.Errores.Add(_mensajes.GetMensaje(Mensajes.AutorYaExiste, autor.Id));
                 resultado.StatusCode = HttpStatusCode.Conflict;
                 return resultado;
             }
@@ -53,7 +57,7 @@ namespace LibreriaVirtualData.Library.Data
 
             if (a == null)
             {
-                resultado.Errores.Add($"No existe un autor con el id {idAutor}");
+                resultado.Errores.Add(_mensajes.GetMensaje(Mensajes.AutorNoExiste, idAutor));
                 resultado.StatusCode = HttpStatusCode.NotFound;
                 return resultado;
             }

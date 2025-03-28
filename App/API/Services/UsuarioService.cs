@@ -15,7 +15,7 @@ namespace API.Services
         }
         public async Task<ResultadoOperacion> RegistrarUsuario(UsuarioRegistroDTO usuario)
         {
-            var nuevoUsuario = new Usuario
+            Usuario nuevoUsuario = new Usuario
             {
                 Nombre = usuario.Nombre,
                 Email = usuario.Email,

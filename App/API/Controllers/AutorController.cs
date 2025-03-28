@@ -3,6 +3,7 @@ using API.Models.Respuesta;
 using API.Services;
 using LibreriaVirtualData.Library.Data.Helpers;
 using Microsoft.AspNetCore.Mvc;
+using Shared.Library;
 
 namespace API.Controllers
 {
@@ -12,22 +13,24 @@ namespace API.Controllers
     {
         private readonly IAutorService _autorService;
         private readonly ManejarRespuestaDeErrorService _servicioRespuesta;
-        public AutorController(IAutorService autorService, 
-            ManejarRespuestaDeErrorService servicioRespuesta)
+        private readonly MensajesService _mensajes;
+        public AutorController(IAutorService autorService,
+            ManejarRespuestaDeErrorService servicioRespuesta, MensajesService mensajes)
         {
             _autorService = autorService;
             _servicioRespuesta = servicioRespuesta;
+            _mensajes = mensajes;
         }
         [HttpPost]
         public async Task<IActionResult> RegistrarAutor(AutorRegistroDTO autor)
         {
-            var respuesta = new Respuesta();
-            var resultado = await _autorService.RegistrarAutor(autor);
+            Respuesta respuesta = new Respuesta();
+            ResultadoOperacion resultado = await _autorService.RegistrarAutor(autor);
 
             if (resultado.Exito)
             {
                 respuesta.exito = 1;
-                respuesta.mensaje = "Se registro el autor exitosamente.";
+                respuesta.mensaje = _mensajes.GetMensaje(Mensajes.AutorRegistroExito);
                 return Ok(respuesta);
             }
             else
@@ -47,7 +50,7 @@ namespace API.Controllers
             if (resultado.Exito)
             {
                 respuesta.exito = 1;
-                respuesta.mensaje = "Se obtuvieron los detalles del autor";
+                respuesta.mensaje = _mensajes.GetMensaje(Mensajes.DetalleAutorExito, authorId);
                 respuesta.data = resultado.Data.FirstOrDefault();
                 return Ok(respuesta);
             }

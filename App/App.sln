@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.12.35707.178 d17.12
+VisualStudioVersion = 17.12.35707.178
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "API", "API\API.csproj", "{CF98EA87-2DFA-40F5-A8F0-BBAE7EA6393F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibreriaVirtualData.Library", "LibreriaVirtualData.Library\LibreriaVirtualData.Library.csproj", "{D917038A-2C5C-4B2D-BEAE-7D8B5F9B2BDC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared.Library", "Shared.Library\Shared.Library.csproj", "{46054A04-9112-41B1-8852-9A3D05E5B00F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{D917038A-2C5C-4B2D-BEAE-7D8B5F9B2BDC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D917038A-2C5C-4B2D-BEAE-7D8B5F9B2BDC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D917038A-2C5C-4B2D-BEAE-7D8B5F9B2BDC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{46054A04-9112-41B1-8852-9A3D05E5B00F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{46054A04-9112-41B1-8852-9A3D05E5B00F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{46054A04-9112-41B1-8852-9A3D05E5B00F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{46054A04-9112-41B1-8852-9A3D05E5B00F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

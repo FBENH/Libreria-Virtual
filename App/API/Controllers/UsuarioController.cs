@@ -3,6 +3,7 @@ using API.Models.Respuesta;
 using API.Services;
 using LibreriaVirtualData.Library.Data.Helpers;
 using Microsoft.AspNetCore.Mvc;
+using Shared.Library;
 using System.ComponentModel.DataAnnotations;
 using System.Net;
 
@@ -14,23 +15,25 @@ namespace API.Controllers
     {
         private readonly IUsuarioService _servicioUsuarios;
         private readonly ManejarRespuestaDeErrorService _servicioRespuesta;
-
-        public UsuarioController(IUsuarioService servicioUsuarios, ManejarRespuestaDeErrorService servicioRespuesta)
+        private readonly MensajesService _mensajes;
+        public UsuarioController(IUsuarioService servicioUsuarios, 
+            ManejarRespuestaDeErrorService servicioRespuesta, MensajesService mensajes)
         {
             _servicioUsuarios = servicioUsuarios;
             _servicioRespuesta = servicioRespuesta;
+            _mensajes = mensajes;
         }
 
         [HttpPost]        
         public async Task<IActionResult> RegistrarUsuario([FromBody] UsuarioRegistroDTO usuario)
         {
-            var respuesta = new Respuesta();
-                            
+            Respuesta respuesta = new Respuesta();                            
             ResultadoOperacion resultado = await _servicioUsuarios.RegistrarUsuario(usuario);
+
             if (resultado.Exito)
             {
                 respuesta.exito = 1;
-                respuesta.mensaje = "Se registró el usuario exitosamente."; //TODO traer mensajes de configuracion
+                respuesta.mensaje = _mensajes.GetMensaje(Mensajes.UsuarioRegistroExito);
                 return Ok(respuesta);
             }
             else
@@ -44,13 +47,13 @@ namespace API.Controllers
         [Route("{userId}")]
         public async Task<IActionResult> CambiarUrlFoto([FromBody] ActualizarUrlUsuarioDTO url, [FromRoute] Guid userId)
         {
-            var respuesta = new Respuesta();
-
+            Respuesta respuesta = new Respuesta();
             ResultadoOperacion resultado = await _servicioUsuarios.ActualizarFoto(userId, url);
+
             if (resultado.Exito)
             {
                 respuesta.exito = 1;
-                respuesta.mensaje = "Se actualizó la foto del usuario";//TODO traer mensajes de configuracion
+                respuesta.mensaje = _mensajes.GetMensaje(Mensajes.UsuarioFoto, userId);
                 return Ok(respuesta);
             }
             else
@@ -64,13 +67,13 @@ namespace API.Controllers
         [Route("{userId}")]
         public async Task<IActionResult> EliminarUsuario([FromRoute] Guid userId)
         {
-            var respuesta = new Respuesta();
+            Respuesta respuesta = new Respuesta();
+            ResultadoOperacion resultado = await _servicioUsuarios.EliminarUsuario(userId);
 
-            var resultado = await _servicioUsuarios.EliminarUsuario(userId);
             if (resultado.Exito)
             {
                 respuesta.exito = 1;
-                respuesta.mensaje = "Se eliminó el usuario";//TODO traer mensajes de configuracion
+                respuesta.mensaje = _mensajes.GetMensaje(Mensajes.UsuarioEliminar, userId);
                 return Ok(respuesta);
             }
             else
@@ -85,13 +88,13 @@ namespace API.Controllers
         [Route("{userId}/subscribe-to-author/{authorId}")]
         public async Task<IActionResult> SuscribirseAutor([FromRoute] Guid userId, [FromRoute] int authorId)
         {
-            var respuesta = new Respuesta();
+            Respuesta respuesta = new Respuesta();
+            ResultadoOperacion resultado = await _servicioUsuarios.SuscribirseAutor(userId, authorId);
 
-            var resultado = await _servicioUsuarios.SuscribirseAutor(userId, authorId);
             if (resultado.Exito)
             {
                 respuesta.exito = 1;
-                respuesta.mensaje = "Se suscribió al autor exitosamente";
+                respuesta.mensaje = _mensajes.GetMensaje(Mensajes.UsuarioSuscribir, [userId, authorId]);
                 return Ok(respuesta);
             }
             else
@@ -105,13 +108,13 @@ namespace API.Controllers
         [Route("{userId}/subscribe-to-author/{authorId}")]
         public async Task<IActionResult> EliminarSuscripcion([FromRoute] Guid userId, [FromRoute] int authorId)
         {
-            var respuesta = new Respuesta();
-            var resultado = await _servicioUsuarios.EliminarSuscripcion(userId, authorId);
+            Respuesta respuesta = new Respuesta();
+            ResultadoOperacion resultado = await _servicioUsuarios.EliminarSuscripcion(userId, authorId);
 
             if (resultado.Exito)
             {
                 respuesta.exito = 1;
-                respuesta.mensaje = "Se eliminó la suscripción exitosamente";
+                respuesta.mensaje = _mensajes.GetMensaje(Mensajes.UsuarioEliminarSuscripcion, [userId, authorId]);
                 return Ok(respuesta);
             }
             else
@@ -125,11 +128,11 @@ namespace API.Controllers
         public async Task<IActionResult> ListadoDeUsuarios([FromQuery, Required, Range(0,int.MaxValue)] int offset,
             [FromQuery, Required, Range(0, int.MaxValue)] int limit)
         {
-            var respuesta = new Respuesta();
-            var resultado = await _servicioUsuarios.ListadoDeUsuarios(offset, limit);
+            Respuesta respuesta = new Respuesta();
+            ResultadoOperacion resultado = await _servicioUsuarios.ListadoDeUsuarios(offset, limit);
             
             respuesta.exito = 1;
-            respuesta.mensaje = "Éxito al obtener listado.";
+            respuesta.mensaje = _mensajes.GetMensaje(Mensajes.UsuarioListado);
             respuesta.data = new
             {
                 TotalDeUsuarios = resultado.Data?.Count(),

@@ -3,6 +3,7 @@ using LibreriaVirtualData.Library.Models;
 using LibreriaVirtualData.Library.Data.Helpers;
 using System.Net;
 using Microsoft.EntityFrameworkCore;
+using Shared.Library;
 
 namespace LibreriaVirtualData.Library.Data
 {
@@ -10,19 +11,22 @@ namespace LibreriaVirtualData.Library.Data
     {
         private readonly LibreriaContext _context;
         private readonly IDataHelper _dataHelper;
-        public UsuarioData(LibreriaContext context, IDataHelper dataHelper)
+        private readonly MensajesService _mensajes;
+        public UsuarioData(LibreriaContext context, 
+            IDataHelper dataHelper, MensajesService mensajes)
         {
             _context = context;
             _dataHelper = dataHelper;
+            _mensajes = mensajes;
         }
 
         public async Task<ResultadoOperacion> RegistrarUsuario(Usuario usuario)
         {
-            var resultado = new ResultadoOperacion();
-            var us = await _context.Usuarios.Where(u => u.Id == usuario.Id).FirstOrDefaultAsync();
+            ResultadoOperacion resultado = new ResultadoOperacion();
+            Usuario? us = await _context.Usuarios.Where(u => u.Id == usuario.Id).FirstOrDefaultAsync();
             if (us != null)
             {
-                resultado.Errores.Add($"Ya existe un usuario con el id {usuario.Id}");
+                resultado.Errores.Add(_mensajes.GetMensaje(Mensajes.UsuarioYaExiste,usuario.Id));
                 resultado.StatusCode = HttpStatusCode.Conflict;
                 return resultado;
             }
@@ -34,11 +38,11 @@ namespace LibreriaVirtualData.Library.Data
 
         public async Task<ResultadoOperacion> CambiarFotoUsuario(Guid idUsuario, string url)
         {
-            var resultado = new ResultadoOperacion();
-            var usuario = await _dataHelper.BuscarUsuario(idUsuario);
+            ResultadoOperacion resultado = new ResultadoOperacion();
+            Usuario usuario = await _dataHelper.BuscarUsuario(idUsuario);
             if (usuario == null)
             {                
-                resultado.Errores.Add($"No se encontró un usuario con id {idUsuario}");
+                resultado.Errores.Add(_mensajes.GetMensaje(Mensajes.UsuarioNoExiste,idUsuario));
                 resultado.StatusCode = HttpStatusCode.NotFound;
                 return resultado;
             }            
@@ -50,11 +54,11 @@ namespace LibreriaVirtualData.Library.Data
 
         public async Task<ResultadoOperacion> EliminarUsuario(Guid idUsuario)
         {
-            var resultado = new ResultadoOperacion();
-            var usuario = await _dataHelper.BuscarUsuario(idUsuario);
+            ResultadoOperacion resultado = new ResultadoOperacion();
+            Usuario usuario = await _dataHelper.BuscarUsuario(idUsuario);
             if (usuario == null)
             {                
-                resultado.Errores.Add($"No se encontró el usuario con id {idUsuario}");
+                resultado.Errores.Add(_mensajes.GetMensaje(Mensajes.UsuarioNoExiste,idUsuario));
                 resultado.StatusCode = HttpStatusCode.NotFound;
                 return resultado;
             }
@@ -66,22 +70,22 @@ namespace LibreriaVirtualData.Library.Data
 
         public async Task<ResultadoOperacion> SuscribirseAutor(Guid idUsuario, int idAutor)
         {
-            var resultado = new ResultadoOperacion();
-            var usuario = await _dataHelper.BuscarUsuario(idUsuario);
+            ResultadoOperacion resultado = new ResultadoOperacion();
+            Usuario usuario = await _dataHelper.BuscarUsuario(idUsuario);
             if (usuario == null)            {
                 
-                resultado.Errores.Add($"No se encontró el usuario con id {idUsuario}");
+                resultado.Errores.Add(_mensajes.GetMensaje(Mensajes.UsuarioNoExiste, idUsuario));
                 resultado.StatusCode = HttpStatusCode.NotFound;
                 return resultado;
             }
-            var autor = await _dataHelper.BuscarAutor(idAutor);
+            Autor autor = await _dataHelper.BuscarAutor(idAutor);
             if (autor == null)
             {
-                resultado.Errores.Add($"No se encontró el autor con id {idAutor}");
+                resultado.Errores.Add(_mensajes.GetMensaje(Mensajes.AutorNoExiste, idAutor));
                 resultado.StatusCode = HttpStatusCode.NotFound;
                 return resultado;
             }
-            var suscripcion = new Suscripcion
+            Suscripcion suscripcion = new Suscripcion
             {
                 IdAutor = autor.Id,
                 IdUsuario = usuario.Id
@@ -89,7 +93,7 @@ namespace LibreriaVirtualData.Library.Data
             bool existe = await _dataHelper.YaExisteSuscripcion(idUsuario, idAutor);
             if (existe)
             {
-                resultado.Errores.Add($"El usuario con id {idUsuario} ya esta suscripto al autor con id {idAutor}");
+                resultado.Errores.Add(_mensajes.GetMensaje(Mensajes.UsuarioYaSuscripto, [idUsuario, idAutor]));
                 resultado.StatusCode = HttpStatusCode.Conflict;
                 return resultado;
             }
@@ -101,11 +105,11 @@ namespace LibreriaVirtualData.Library.Data
 
         public async Task<ResultadoOperacion> EliminarSuscripcion(Guid idUsuario, int idAutor)
         {
-            var resultado = new ResultadoOperacion();
-            var suscripcion = await _dataHelper.BuscarSuscripcion(idUsuario, idAutor);
+            ResultadoOperacion resultado = new ResultadoOperacion();
+            Suscripcion suscripcion = await _dataHelper.BuscarSuscripcion(idUsuario, idAutor);
             if (suscripcion == null)
             {
-                resultado.Errores.Add($"No se encontró una suscripción de un usuario con id {idUsuario} a un autor con id {idAutor}");
+                resultado.Errores.Add(_mensajes.GetMensaje(Mensajes.SuscripcionNoExiste, [idUsuario, idAutor]));
                 resultado.StatusCode = HttpStatusCode.NotFound;
                 return resultado;
             }
@@ -118,7 +122,7 @@ namespace LibreriaVirtualData.Library.Data
 
         public async Task<ResultadoOperacion> ListadoDeUsuarios(int offset, int limit)
         {
-            var resultado = new ResultadoOperacion();
+            ResultadoOperacion resultado = new ResultadoOperacion();
             var usuarios = await _context.Usuarios
                 .Include(u => u.Suscripciones)
                 .OrderBy(u => u.FechaRegistro)
