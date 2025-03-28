@@ -8,8 +8,8 @@ namespace API.Services
         Task<ResultadoOperacion> RegistrarUsuario(UsuarioRegistroDTO usuario);
         Task<ResultadoOperacion> ActualizarFoto(Guid idUsuario, ActualizarUrlUsuarioDTO url);
         Task<ResultadoOperacion> EliminarUsuario(Guid idUsuario);
-        Task<ResultadoOperacion> SuscribirseAutor(Guid idUsuario, int idAutor);
-        Task<ResultadoOperacion> EliminarSuscripcion(Guid idUsuario, int idAutor);
-        Task<ResultadoOperacion> ListadoDeUsuarios(int offset, int limit);
+        Task<ResultadoOperacion> SuscribirseAutor(SuscribirseAutorDTO suscripcion);
+        Task<ResultadoOperacion> EliminarSuscripcion(SuscribirseAutorDTO suscripcion);
+        Task<ResultadoOperacion> ListadoDeUsuarios(OffsetLimitDTO parameters);
     }
 }

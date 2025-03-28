@@ -4,6 +4,7 @@ using LibreriaVirtualData.Library.Data.Helpers;
 using System.Net;
 using Microsoft.EntityFrameworkCore;
 using Shared.Library.Mensajes.Mensajes;
+using Shared.Library.DTO;
 
 namespace LibreriaVirtualData.Library.Data
 {
@@ -20,7 +21,7 @@ namespace LibreriaVirtualData.Library.Data
             _mensajes = mensajes;
         }
 
-        public async Task<ResultadoOperacion> RegistrarUsuario(Usuario usuario)  //TODO refactor usar DTO
+        public async Task<ResultadoOperacion> RegistrarUsuario(Usuario usuario)
         {
             ResultadoOperacion resultado = new ResultadoOperacion();
             Usuario? us = await _context.Usuarios.Where(u => u.Id == usuario.Id).FirstOrDefaultAsync();
@@ -36,7 +37,7 @@ namespace LibreriaVirtualData.Library.Data
             return resultado;
         }
 
-        public async Task<ResultadoOperacion> CambiarFotoUsuario(Guid idUsuario, string url)
+        public async Task<ResultadoOperacion> CambiarFotoUsuario(Guid idUsuario, ActualizarUrlUsuarioDTO url)
         {
             ResultadoOperacion resultado = new ResultadoOperacion();
             Usuario usuario = await _dataHelper.BuscarUsuario(idUsuario);
@@ -46,7 +47,7 @@ namespace LibreriaVirtualData.Library.Data
                 resultado.StatusCode = HttpStatusCode.NotFound;
                 return resultado;
             }            
-            usuario.UrlFoto = url;
+            usuario.UrlFoto = url.Url;
             await _context.SaveChangesAsync();
             resultado.Exito = true;
             return resultado;
@@ -68,20 +69,20 @@ namespace LibreriaVirtualData.Library.Data
             return resultado;
         }
 
-        public async Task<ResultadoOperacion> SuscribirseAutor(Guid idUsuario, int idAutor)
+        public async Task<ResultadoOperacion> SuscribirseAutor(SuscribirseAutorDTO suscripcionDto)
         {
             ResultadoOperacion resultado = new ResultadoOperacion();
-            Usuario usuario = await _dataHelper.BuscarUsuario(idUsuario);
+            Usuario usuario = await _dataHelper.BuscarUsuario(suscripcionDto.userId);
             if (usuario == null)            {
                 
-                resultado.Errores.Add(_mensajes.GetMensaje(Mensajes.UsuarioNoExiste, idUsuario));
+                resultado.Errores.Add(_mensajes.GetMensaje(Mensajes.UsuarioNoExiste, suscripcionDto.userId));
                 resultado.StatusCode = HttpStatusCode.NotFound;
                 return resultado;
             }
-            Autor autor = await _dataHelper.BuscarAutor(idAutor);
+            Autor autor = await _dataHelper.BuscarAutor(suscripcionDto.authorId);
             if (autor == null)
             {
-                resultado.Errores.Add(_mensajes.GetMensaje(Mensajes.AutorNoExiste, idAutor));
+                resultado.Errores.Add(_mensajes.GetMensaje(Mensajes.AutorNoExiste, suscripcionDto.authorId));
                 resultado.StatusCode = HttpStatusCode.NotFound;
                 return resultado;
             }
@@ -90,10 +91,10 @@ namespace LibreriaVirtualData.Library.Data
                 IdAutor = autor.Id,
                 IdUsuario = usuario.Id
             };
-            bool existe = await _dataHelper.YaExisteSuscripcion(idUsuario, idAutor);
+            bool existe = await _dataHelper.YaExisteSuscripcion(suscripcionDto.userId, suscripcionDto.authorId);
             if (existe)
             {
-                resultado.Errores.Add(_mensajes.GetMensaje(Mensajes.UsuarioYaSuscripto, [idUsuario, idAutor]));
+                resultado.Errores.Add(_mensajes.GetMensaje(Mensajes.UsuarioYaSuscripto, [suscripcionDto.userId, suscripcionDto.authorId]));
                 resultado.StatusCode = HttpStatusCode.Conflict;
                 return resultado;
             }
@@ -103,13 +104,13 @@ namespace LibreriaVirtualData.Library.Data
             return resultado;
         }
 
-        public async Task<ResultadoOperacion> EliminarSuscripcion(Guid idUsuario, int idAutor)
+        public async Task<ResultadoOperacion> EliminarSuscripcion(SuscribirseAutorDTO suscripcionDto)
         {
             ResultadoOperacion resultado = new ResultadoOperacion();
-            Suscripcion suscripcion = await _dataHelper.BuscarSuscripcion(idUsuario, idAutor);
+            Suscripcion suscripcion = await _dataHelper.BuscarSuscripcion(suscripcionDto.userId, suscripcionDto.authorId);
             if (suscripcion == null)
             {
-                resultado.Errores.Add(_mensajes.GetMensaje(Mensajes.SuscripcionNoExiste, [idUsuario, idAutor]));
+                resultado.Errores.Add(_mensajes.GetMensaje(Mensajes.SuscripcionNoExiste, [suscripcionDto.userId, suscripcionDto.authorId]));
                 resultado.StatusCode = HttpStatusCode.NotFound;
                 return resultado;
             }
@@ -120,14 +121,14 @@ namespace LibreriaVirtualData.Library.Data
             
         }
 
-        public async Task<ResultadoOperacion> ListadoDeUsuarios(int offset, int limit)
+        public async Task<ResultadoOperacion> ListadoDeUsuarios(OffsetLimitDTO parameters)
         {
             ResultadoOperacion resultado = new ResultadoOperacion();
             var usuarios = await _context.Usuarios
                 .Include(u => u.Suscripciones)
                 .OrderBy(u => u.FechaRegistro)
-                .Skip(offset)
-                .Take(limit)
+                .Skip(parameters.Offset)
+                .Take(parameters.Limit)
                 .Select(u => new
                 {
                     Id = u.Id,

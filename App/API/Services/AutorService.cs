@@ -14,14 +14,7 @@ namespace API.Services
         }
         public async Task<ResultadoOperacion> RegistrarAutor(AutorRegistroDTO autor)
         {
-            Autor nuevoAutor = new Autor
-            {
-                Nombre = autor.Nombre,
-                Nacionalidad = autor.Nacionalidad,
-                FechaNacimiento = autor.FechaNacimiento
-            };
-
-            ResultadoOperacion resultado = await _repositorioAutores.RegistrarAutor(nuevoAutor);
+            ResultadoOperacion resultado = await _repositorioAutores.RegistrarAutor(autor);
             return resultado;
         }
 

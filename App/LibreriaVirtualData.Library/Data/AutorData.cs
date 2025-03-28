@@ -2,6 +2,7 @@
 using LibreriaVirtualData.Library.Data.Helpers;
 using LibreriaVirtualData.Library.Models;
 using Microsoft.EntityFrameworkCore;
+using Shared.Library.DTO;
 using Shared.Library.Mensajes.Mensajes;
 using System.Net;
 
@@ -20,18 +21,17 @@ namespace LibreriaVirtualData.Library.Data
             _mensajes = mensajes;
         }
 
-        public async Task<ResultadoOperacion> RegistrarAutor(Autor autor) //TODO refactor usar DTO
+        public async Task<ResultadoOperacion> RegistrarAutor(AutorRegistroDTO autor)
         {
             ResultadoOperacion resultado = new ResultadoOperacion();
-            Autor a = await _dataHelper.BuscarAutor(autor.Id);
-            if (a != null)
+            Autor nuevoAutor = new Autor
             {
-                resultado.Errores.Add(_mensajes.GetMensaje(Mensajes.AutorYaExiste, autor.Id));
-                resultado.StatusCode = HttpStatusCode.Conflict;
-                return resultado;
-            }
+                Nombre = autor.Nombre,
+                Nacionalidad = autor.Nacionalidad,
+                FechaNacimiento = autor.FechaNacimiento
+            };
 
-            await _context.Autores.AddAsync(autor);
+            await _context.Autores.AddAsync(nuevoAutor);
             await _context.SaveChangesAsync();
             resultado.Exito = true;
             return resultado;

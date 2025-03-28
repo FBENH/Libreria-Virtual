@@ -85,15 +85,15 @@ namespace API.Controllers
 
         [HttpPost]
         [Route("{userId}/subscribe-to-author/{authorId}")]
-        public async Task<IActionResult> SuscribirseAutor([FromRoute] Guid userId, [FromRoute] int authorId)
+        public async Task<IActionResult> SuscribirseAutor([FromRoute] SuscribirseAutorDTO suscripcion)
         {
             Respuesta respuesta = new Respuesta();
-            ResultadoOperacion resultado = await _servicioUsuarios.SuscribirseAutor(userId, authorId);
+            ResultadoOperacion resultado = await _servicioUsuarios.SuscribirseAutor(suscripcion);
 
             if (resultado.Exito)
             {
                 respuesta.exito = 1;
-                respuesta.mensaje = _mensajes.GetMensaje(Mensajes.UsuarioSuscribir, [userId, authorId]);
+                respuesta.mensaje = _mensajes.GetMensaje(Mensajes.UsuarioSuscribir, [suscripcion.userId, suscripcion.authorId]);
                 return Ok(respuesta);
             }
             else
@@ -105,15 +105,15 @@ namespace API.Controllers
 
         [HttpDelete]
         [Route("{userId}/subscribe-to-author/{authorId}")]
-        public async Task<IActionResult> EliminarSuscripcion([FromRoute] Guid userId, [FromRoute] int authorId)
+        public async Task<IActionResult> EliminarSuscripcion([FromRoute] SuscribirseAutorDTO suscripcion)
         {
             Respuesta respuesta = new Respuesta();
-            ResultadoOperacion resultado = await _servicioUsuarios.EliminarSuscripcion(userId, authorId);
+            ResultadoOperacion resultado = await _servicioUsuarios.EliminarSuscripcion(suscripcion);
 
             if (resultado.Exito)
             {
                 respuesta.exito = 1;
-                respuesta.mensaje = _mensajes.GetMensaje(Mensajes.UsuarioEliminarSuscripcion, [userId, authorId]);
+                respuesta.mensaje = _mensajes.GetMensaje(Mensajes.UsuarioEliminarSuscripcion, [suscripcion.userId, suscripcion.authorId]);
                 return Ok(respuesta);
             }
             else
@@ -124,11 +124,10 @@ namespace API.Controllers
         }
 
         [HttpGet]        
-        public async Task<IActionResult> ListadoDeUsuarios([FromQuery, Required, Range(0,int.MaxValue)] int offset,
-            [FromQuery, Required, Range(0, int.MaxValue)] int limit)
+        public async Task<IActionResult> ListadoDeUsuarios([FromQuery] OffsetLimitDTO parameters)
         {
             Respuesta respuesta = new Respuesta();
-            ResultadoOperacion resultado = await _servicioUsuarios.ListadoDeUsuarios(offset, limit);
+            ResultadoOperacion resultado = await _servicioUsuarios.ListadoDeUsuarios(parameters);
             
             respuesta.exito = 1;
             respuesta.mensaje = _mensajes.GetMensaje(Mensajes.UsuarioListado);

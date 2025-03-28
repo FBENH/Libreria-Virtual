@@ -28,7 +28,7 @@ namespace API.Services
 
         public async Task<ResultadoOperacion> ActualizarFoto(Guid idUsuario, ActualizarUrlUsuarioDTO url)
         {
-            ResultadoOperacion resultado = await _repositorioUsuarios.CambiarFotoUsuario(idUsuario, url.Url);
+            ResultadoOperacion resultado = await _repositorioUsuarios.CambiarFotoUsuario(idUsuario, url);
             return resultado;
         }
 
@@ -38,21 +38,21 @@ namespace API.Services
             return resultado;
         }
 
-        public async Task<ResultadoOperacion> SuscribirseAutor(Guid idUsuario, int idAutor)
+        public async Task<ResultadoOperacion> SuscribirseAutor(SuscribirseAutorDTO suscripcion)
         {
-            ResultadoOperacion resultado = await _repositorioUsuarios.SuscribirseAutor(idUsuario, idAutor);
+            ResultadoOperacion resultado = await _repositorioUsuarios.SuscribirseAutor(suscripcion);
             return resultado;
         }
 
-        public async Task<ResultadoOperacion> EliminarSuscripcion(Guid idUsuario, int idAutor)
+        public async Task<ResultadoOperacion> EliminarSuscripcion(SuscribirseAutorDTO suscripcion)
         {
-            ResultadoOperacion resultado = await _repositorioUsuarios.EliminarSuscripcion(idUsuario, idAutor);
+            ResultadoOperacion resultado = await _repositorioUsuarios.EliminarSuscripcion(suscripcion);
             return resultado;
         }
 
-        public async Task<ResultadoOperacion> ListadoDeUsuarios(int offset, int limit)
+        public async Task<ResultadoOperacion> ListadoDeUsuarios(OffsetLimitDTO parameters)
         {
-            ResultadoOperacion resultado = await _repositorioUsuarios.ListadoDeUsuarios(offset, limit);
+            ResultadoOperacion resultado = await _repositorioUsuarios.ListadoDeUsuarios(parameters);
             return resultado;
         }
     }
