@@ -2,6 +2,7 @@
 using LibreriaVirtualData.Library.Data.Helpers;
 using LibreriaVirtualData.Library.Models;
 using Shared.Library.DTO;
+using Shared.Library.Mensajes.Mensajes;
 
 namespace API.Services
 {
@@ -10,14 +11,17 @@ namespace API.Services
         private readonly ILibroData _repositorioLibros;
         private readonly IEmailSender _emailSender;
         private readonly IConfiguration _config;
+        private readonly MensajesService _mensajes;
 
         public LibroService(ILibroData repositorioLibros,
                             IEmailSender emailSender,
-                            IConfiguration config)
+                            IConfiguration config,
+                            MensajesService mensajes)
         {
             _repositorioLibros = repositorioLibros;
             _emailSender = emailSender;
             _config = config;
+            _mensajes = mensajes;
         }
         public async Task<ResultadoOperacion> BuscarLibros(BuscarLibrosDTO query)
         {
@@ -40,15 +44,13 @@ namespace API.Services
 
                 foreach (var suscriptor in suscriptores)
                 {
-                    string textMessage = $"Hola {suscriptor.Nombre},\n\n" +
-                                         $"Tenemos el placer de informarte que el autor {autor.Nombre} ha publicado un nuevo libro titulado \"{libro.Titulo}\". " +
-                                         "Este libro podría ser de tu interés.\n\n" +
-                                         $"Para más información, visita el siguiente enlace: {libro.Url}\n\n" +
-                                         "¡Esperamos que disfrutes de la lectura!\n\n";
+                    string textMessage = _mensajes.GetMensaje(Mensajes.EmailBody, [suscriptor.Nombre, autor.Nombre, libro.Titulo, libro.Url]);
                     
                     _emailSender.SendEmailAsync(fromAddress, suscriptor.Email, subject, textMessage);
                 }
             }
+
+            resultado.Data.Clear();
 
             return resultado;
         }

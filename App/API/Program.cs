@@ -33,6 +33,8 @@ builder.Services.AddTransient<ILibroData, LibroData>();
 builder.Services.AddTransient<IDataHelper, DataHelper>();
 builder.Services.AddTransient<ManejadorExcepcionesMiddleware>();
 builder.Services.AddTransient<ManejarRespuestaDeErrorService>();
+builder.Services.AddTransient<IReviewData, ReviewData>();
+builder.Services.AddTransient<IReviewService, ReviewService>();
 
 var app = builder.Build();
 

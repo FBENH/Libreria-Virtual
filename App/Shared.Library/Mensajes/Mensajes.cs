@@ -23,6 +23,9 @@ namespace Shared.Library.Mensajes.Mensajes
         UsuarioYaSuscripto,
         SuscripcionNoExiste,
         LibrosListado,
-        LibroIngresar
+        LibroIngresar,
+        EmailBody,
+        LibroNoExiste,
+        ReviewsListado
     }
 }

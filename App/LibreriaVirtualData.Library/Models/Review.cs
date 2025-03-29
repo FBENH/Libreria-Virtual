@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Shared.Library.Enums;
 
 namespace LibreriaVirtualData.Library.Models
 {
@@ -26,14 +27,5 @@ namespace LibreriaVirtualData.Library.Models
         public int IdLibro { get; set; }
         [ForeignKey("IdLibro")]
         public virtual Libro Libro { get; set; }
-    }
-
-    public enum Calificacion
-    {
-        MuyMalo = 1,
-        Malo = 2,
-        Regular = 3,
-        Bueno = 4,
-        Excelente = 5
-    }
+    }    
 }

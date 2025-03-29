@@ -24,5 +24,8 @@ namespace Shared.Library.Mensajes.Mensajes
         public string SuscripcionNoExiste { get; set; }
         public string LibrosListado { get; set; }
         public string LibroIngresar { get; set; }
+        public string EmailBody { get; set; }
+        public string LibroNoExiste { get; set; }
+        public string ReviewsListado { get; set; }
     }
 }
