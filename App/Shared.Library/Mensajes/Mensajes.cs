@@ -26,6 +26,10 @@ namespace Shared.Library.Mensajes.Mensajes
         LibroIngresar,
         EmailBody,
         LibroNoExiste,
-        ReviewsListado
+        ReviewsListado,
+        ReviewAgregar,
+        ErrorConcurrencia,
+        InternalError,
+        ReviewYaExiste
     }
 }

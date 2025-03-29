@@ -1,5 +1,7 @@
 ﻿
 using API.Models.Respuesta;
+using Microsoft.EntityFrameworkCore;
+using Shared.Library.Mensajes.Mensajes;
 using System.Net;
 
 namespace API.Middlewares
@@ -7,9 +9,12 @@ namespace API.Middlewares
     public class ManejadorExcepcionesMiddleware : IMiddleware
     {
 		private readonly ILogger<ManejadorExcepcionesMiddleware> _logger;
-        public ManejadorExcepcionesMiddleware(ILogger<ManejadorExcepcionesMiddleware> logger)
+        private readonly MensajesService _mensajes;
+
+        public ManejadorExcepcionesMiddleware(ILogger<ManejadorExcepcionesMiddleware> logger, MensajesService mensajes)
         {
             _logger = logger;
+            _mensajes = mensajes;
         }
         public async Task InvokeAsync(HttpContext context, RequestDelegate next)
         {
@@ -30,10 +35,14 @@ namespace API.Middlewares
             string mensaje;
 
             switch (exception)
-            {                
+            {
+                case DbUpdateConcurrencyException:
+                    statusCode = (int)HttpStatusCode.Conflict;
+                    mensaje = _mensajes.GetMensaje(Mensajes.ErrorConcurrencia);
+                    break;
                 default:
                     statusCode = (int)HttpStatusCode.InternalServerError;
-                    mensaje = "Error en el servidor."; //TODO traer mensaje desde configuracion
+                    mensaje = _mensajes.GetMensaje(Mensajes.InternalError);
                     break;
             }
 

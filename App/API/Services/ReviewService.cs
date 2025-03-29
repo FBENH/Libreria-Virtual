@@ -12,6 +12,13 @@ namespace API.Services
         {
             _repositorioReviews = repositorioReviews;
         }
+
+        public async Task<ResultadoOperacion> AgregarReview(int idLibro, Guid idUsuario, AgregarReviewDTO reviewDto)
+        {
+            ResultadoOperacion resultado = await _repositorioReviews.AgregarReview(idLibro, idUsuario, reviewDto);
+            return resultado;
+        }
+
         public async Task<ResultadoOperacion> BuscarReviews(int idLibro, BuscarReviewsDTO parametros)
         {
             ResultadoOperacion resultado = await _repositorioReviews.BuscarReviews(idLibro, parametros);

@@ -37,7 +37,34 @@ namespace LibreriaVirtualData.Library.Data.Helpers
             bool existe = suscripcion == null ? false : true;
 
             return existe;
-        }        
+        }
+        
+        public async Task<bool> LibroExiste(int idLibro)
+        {
+            bool existe = await _context.Libros.Where(l => l.Id == idLibro).AnyAsync();
+            return existe;
+        }
+
+        public async Task<bool> UsuarioExiste(Guid idUsuario)
+        {
+            bool existe = await _context.Usuarios.Where(u => u.Id == idUsuario && u.Activo).AnyAsync();
+            return existe;
+        }
+
+        public async Task<Libro> BuscarLibro(int idLibro, bool includeReviews)
+        {
+            Libro? libro;
+            if (includeReviews)
+            {
+                libro = await _context.Libros.Include(l => l.Reviews).Where(l => l.Id == idLibro).FirstOrDefaultAsync();
+            }
+            else
+            {
+                libro = await _context.Libros.FindAsync(idLibro);
+            }
+
+            return libro;
+        }
         
     }
 }

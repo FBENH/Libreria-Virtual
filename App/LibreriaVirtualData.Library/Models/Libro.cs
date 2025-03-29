@@ -36,5 +36,8 @@ namespace LibreriaVirtualData.Library.Models
         public virtual Autor Autor { get; set; }
 
         public virtual ICollection<Review> Reviews { get; set; } = new List<Review>();
+
+        [Timestamp]
+        public byte[] RowVersion { get; set; }
     }
 }

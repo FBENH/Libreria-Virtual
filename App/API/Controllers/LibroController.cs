@@ -8,7 +8,7 @@ using Shared.Library.Mensajes.Mensajes;
 namespace API.Controllers
 {
     [ApiController]
-    [Route("/api/v1.0/library/books/")]
+    [Route("/api/v1.0/library/books")]
     public class LibroController : Controller
     {
         private readonly ILibroService _libroService;

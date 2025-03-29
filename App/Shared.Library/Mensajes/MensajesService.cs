@@ -39,6 +39,10 @@ namespace Shared.Library.Mensajes.Mensajes
                 Mensajes.EmailBody => _mensajes.EmailBody,
                 Mensajes.LibroNoExiste => _mensajes.LibroNoExiste,
                 Mensajes.ReviewsListado => _mensajes.ReviewsListado,
+                Mensajes.ReviewAgregar => _mensajes.ReviewAgregar,
+                Mensajes.ErrorConcurrencia => _mensajes.ErrorConcurrencia,
+                Mensajes.InternalError => _mensajes.InternalError,
+                Mensajes.ReviewYaExiste => _mensajes.ReviewYaExiste,
                 _ => ""
             };
 

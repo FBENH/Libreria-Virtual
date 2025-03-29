@@ -27,5 +27,9 @@ namespace Shared.Library.Mensajes.Mensajes
         public string EmailBody { get; set; }
         public string LibroNoExiste { get; set; }
         public string ReviewsListado { get; set; }
+        public string ReviewAgregar { get; set; }
+        public string ErrorConcurrencia { get; set; }
+        public string InternalError { get; set; }
+        public string ReviewYaExiste { get; set; }
     }
 }
