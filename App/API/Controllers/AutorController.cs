@@ -12,10 +12,10 @@ namespace API.Controllers
     public class AutorController : Controller
     {
         private readonly IAutorService _autorService;
-        private readonly ManejarRespuestaDeErrorService _servicioRespuesta;
-        private readonly MensajesService _mensajes;
+        private readonly IManejarRespuestaDeErrorService _servicioRespuesta;
+        private readonly IMensajesService _mensajes;
         public AutorController(IAutorService autorService,
-            ManejarRespuestaDeErrorService servicioRespuesta, MensajesService mensajes)
+            IManejarRespuestaDeErrorService servicioRespuesta, IMensajesService mensajes)
         {
             _autorService = autorService;
             _servicioRespuesta = servicioRespuesta;
@@ -26,18 +26,10 @@ namespace API.Controllers
         {
             Respuesta respuesta = new Respuesta();
             ResultadoOperacion resultado = await _autorService.RegistrarAutor(autor);
-
-            if (resultado.Exito)
-            {
-                respuesta.exito = 1;
-                respuesta.mensaje = _mensajes.GetMensaje(Mensajes.AutorRegistroExito);
-                return Ok(respuesta);
-            }
-            else
-            {
-                respuesta.mensaje = resultado.TextoErrores();
-                return _servicioRespuesta.ManejarRespuestaDeError(resultado, respuesta);
-            }
+            
+            respuesta.exito = 1;
+            respuesta.mensaje = _mensajes.GetMensaje(Mensajes.AutorRegistroExito);
+            return Ok(respuesta);            
         }
 
         [HttpGet]

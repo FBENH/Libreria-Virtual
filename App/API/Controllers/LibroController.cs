@@ -12,11 +12,11 @@ namespace API.Controllers
     public class LibroController : Controller
     {
         private readonly ILibroService _libroService;
-        private readonly MensajesService _mensajes;
-        private readonly ManejarRespuestaDeErrorService _respuestaService;
+        private readonly IMensajesService _mensajes;
+        private readonly IManejarRespuestaDeErrorService _respuestaService;
 
         public LibroController(ILibroService libroService, 
-            MensajesService mensajes, ManejarRespuestaDeErrorService respuestaService)
+            IMensajesService mensajes, IManejarRespuestaDeErrorService respuestaService)
         {
             _libroService = libroService;
             _mensajes = mensajes;

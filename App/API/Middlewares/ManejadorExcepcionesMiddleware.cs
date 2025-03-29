@@ -1,5 +1,4 @@
-﻿
-using API.Models.Respuesta;
+﻿using API.Models.Respuesta;
 using Microsoft.EntityFrameworkCore;
 using Shared.Library.Mensajes.Mensajes;
 using System.Net;
@@ -9,9 +8,9 @@ namespace API.Middlewares
     public class ManejadorExcepcionesMiddleware : IMiddleware
     {
 		private readonly ILogger<ManejadorExcepcionesMiddleware> _logger;
-        private readonly MensajesService _mensajes;
+        private readonly IMensajesService _mensajes;
 
-        public ManejadorExcepcionesMiddleware(ILogger<ManejadorExcepcionesMiddleware> logger, MensajesService mensajes)
+        public ManejadorExcepcionesMiddleware(ILogger<ManejadorExcepcionesMiddleware> logger, IMensajesService mensajes)
         {
             _logger = logger;
             _mensajes = mensajes;

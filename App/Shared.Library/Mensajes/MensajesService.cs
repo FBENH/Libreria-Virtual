@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Shared.Library.Mensajes.Mensajes
 {
-    public class MensajesService
+    public class MensajesService : IMensajesService
     {
         private readonly MensajesConfiguracion _mensajes;
 

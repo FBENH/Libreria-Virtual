@@ -14,12 +14,12 @@ namespace API.Controllers
     public class ReviewController : Controller
     {
         private readonly IReviewService _reviewService;
-        private readonly MensajesService _mensajes;
-        private readonly ManejarRespuestaDeErrorService _manejarRespuesta;
+        private readonly IMensajesService _mensajes;
+        private readonly IManejarRespuestaDeErrorService _manejarRespuesta;
 
         public ReviewController(IReviewService reviewService,
-                                MensajesService mensajes,
-                                ManejarRespuestaDeErrorService manejarRespuesta)
+                                IMensajesService mensajes,
+                                IManejarRespuestaDeErrorService manejarRespuesta)
         {
             _reviewService = reviewService;
             _mensajes = mensajes;

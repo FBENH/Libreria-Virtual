@@ -16,11 +16,11 @@ namespace LibreriaVirtualData.Library.Data
     public class ReviewData : IReviewData
     {
         private readonly LibreriaContext _context;
-        private readonly MensajesService _mensajes;
+        private readonly IMensajesService _mensajes;
         private readonly IDataHelper _dataHelper;
 
         public ReviewData(LibreriaContext context,
-                          MensajesService mensajes,
+                          IMensajesService mensajes,
                           IDataHelper dataHelper)
         {
             _context = context;

@@ -21,7 +21,7 @@ builder.Services.AddDbContext<LibreriaContext>(options =>
 });
 
 builder.Services.Configure<MensajesConfiguracion>(builder.Configuration.GetSection("Mensajes"));
-builder.Services.AddSingleton<MensajesService>();
+builder.Services.AddSingleton<IMensajesService, MensajesService>();
 
 builder.Services.AddTransient<IUsuarioData, UsuarioData>();
 builder.Services.AddTransient<IUsuarioService, UsuarioService>();
@@ -32,7 +32,7 @@ builder.Services.AddTransient<ILibroService, LibroService>();
 builder.Services.AddTransient<ILibroData, LibroData>();
 builder.Services.AddTransient<IDataHelper, DataHelper>();
 builder.Services.AddTransient<ManejadorExcepcionesMiddleware>();
-builder.Services.AddTransient<ManejarRespuestaDeErrorService>();
+builder.Services.AddTransient<IManejarRespuestaDeErrorService, ManejarRespuestaDeErrorService>();
 builder.Services.AddTransient<IReviewData, ReviewData>();
 builder.Services.AddTransient<IReviewService, ReviewService>();
 

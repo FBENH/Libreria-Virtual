@@ -13,10 +13,10 @@ namespace API.Controllers
     public class UsuarioController : Controller
     {
         private readonly IUsuarioService _servicioUsuarios;
-        private readonly ManejarRespuestaDeErrorService _servicioRespuesta;
-        private readonly MensajesService _mensajes;
+        private readonly IManejarRespuestaDeErrorService _servicioRespuesta;
+        private readonly IMensajesService _mensajes;
         public UsuarioController(IUsuarioService servicioUsuarios, 
-            ManejarRespuestaDeErrorService servicioRespuesta, MensajesService mensajes)
+            IManejarRespuestaDeErrorService servicioRespuesta, IMensajesService mensajes)
         {
             _servicioUsuarios = servicioUsuarios;
             _servicioRespuesta = servicioRespuesta;

@@ -11,12 +11,12 @@ namespace API.Services
         private readonly ILibroData _repositorioLibros;
         private readonly IEmailSender _emailSender;
         private readonly IConfiguration _config;
-        private readonly MensajesService _mensajes;
+        private readonly IMensajesService _mensajes;
 
         public LibroService(ILibroData repositorioLibros,
                             IEmailSender emailSender,
                             IConfiguration config,
-                            MensajesService mensajes)
+                            IMensajesService mensajes)
         {
             _repositorioLibros = repositorioLibros;
             _emailSender = emailSender;

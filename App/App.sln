@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibreriaVirtualData.Library
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared.Library", "Shared.Library\Shared.Library.csproj", "{46054A04-9112-41B1-8852-9A3D05E5B00F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibreriaVirtual.Tests", "LibreriaVirtual.Tests\LibreriaVirtual.Tests.csproj", "{D225875B-841E-41D0-913E-D003ABF048B0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{46054A04-9112-41B1-8852-9A3D05E5B00F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{46054A04-9112-41B1-8852-9A3D05E5B00F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{46054A04-9112-41B1-8852-9A3D05E5B00F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D225875B-841E-41D0-913E-D003ABF048B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D225875B-841E-41D0-913E-D003ABF048B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D225875B-841E-41D0-913E-D003ABF048B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D225875B-841E-41D0-913E-D003ABF048B0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

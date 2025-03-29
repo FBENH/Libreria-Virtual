@@ -5,7 +5,7 @@ using System.Net;
 
 namespace API.Services
 {
-    public class ManejarRespuestaDeErrorService
+    public class ManejarRespuestaDeErrorService : IManejarRespuestaDeErrorService
     {
         public IActionResult ManejarRespuestaDeError(ResultadoOperacion resultado, Respuesta respuesta)
         {
