@@ -41,6 +41,7 @@ if (app.Environment.IsDevelopment())
     {
         var context = scope.ServiceProvider.GetRequiredService<LibreriaContext>();
         context.Database.Migrate();
+        //Agregar Datos de prueba
         DatosDePrueba.SeedDatabase(context);
     }
 
