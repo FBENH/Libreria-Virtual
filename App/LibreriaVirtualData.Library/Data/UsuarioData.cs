@@ -106,7 +106,7 @@ namespace LibreriaVirtualData.Library.Data
                 resultado.StatusCode = HttpStatusCode.Conflict;
                 return resultado;
             }
-            await _context.Susripciones.AddAsync(suscripcion);
+            await _context.Suscripciones.AddAsync(suscripcion);
             await _context.SaveChangesAsync();
             resultado.Exito = true;
             return resultado;
@@ -122,7 +122,7 @@ namespace LibreriaVirtualData.Library.Data
                 resultado.StatusCode = HttpStatusCode.NotFound;
                 return resultado;
             }
-            _context.Susripciones.Remove(suscripcion);
+            _context.Suscripciones.Remove(suscripcion);
             await _context.SaveChangesAsync();
             resultado.Exito = true;
             return resultado;

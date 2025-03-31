@@ -31,7 +31,7 @@ namespace LibreriaVirtualData.Library.Models
         [Required]
         public int IdAutor { get; set; }
         [Range(1,5)]
-        public decimal? Calificacion { get; set; }
+        public double? Calificacion { get; set; }
         [ForeignKey("IdAutor")]
         public virtual Autor Autor { get; set; }
 

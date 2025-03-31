@@ -1,5 +1,6 @@
 ﻿using LibreriaVirtualData.Library.Models;
 using Microsoft.EntityFrameworkCore;
+using Shared.Library.Enums;
 
 namespace LibreriaVirtualData.Library.Context
 {
@@ -9,7 +10,7 @@ namespace LibreriaVirtualData.Library.Context
         public DbSet<Autor> Autores { get; set; }
         public DbSet<Libro> Libros { get; set; }
         public DbSet<Review> Reviews { get; set; }
-        public DbSet<Suscripcion> Susripciones { get; set; }
+        public DbSet<Suscripcion> Suscripciones { get; set; }
 
         public LibreriaContext(DbContextOptions<LibreriaContext> options)
             : base(options)
@@ -30,7 +31,6 @@ namespace LibreriaVirtualData.Library.Context
             modelBuilder.Entity<Review>().ToTable("Review");
             modelBuilder.Entity<Suscripcion>().HasKey(au => new { au.IdUsuario, au.IdAutor });
             modelBuilder.Entity<Suscripcion>().ToTable("Suscripcion");
-            // TODO Agregar data de prueba
         }
     }
 }

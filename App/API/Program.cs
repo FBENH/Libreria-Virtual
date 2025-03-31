@@ -34,15 +34,17 @@ builder.Services.AddLogica();
 
 var app = builder.Build();
 
-using (var scope = app.Services.CreateScope())
-{
-    var context = scope.ServiceProvider.GetRequiredService<LibreriaContext>();
-    context.Database.Migrate();
-}
-
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
+    using (var scope = app.Services.CreateScope())
+    {
+        var context = scope.ServiceProvider.GetRequiredService<LibreriaContext>();
+        context.Database.Migrate();
+        DatosDePrueba.SeedDatabase(context);
+    }
+
+
     app.UseSwagger();
     app.UseSwaggerUI();
 }

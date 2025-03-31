@@ -27,13 +27,13 @@ namespace LibreriaVirtualData.Library.Data.Helpers
 
         public async Task<Suscripcion> BuscarSuscripcion(Guid idUsuario, int idAutor)
         {
-            Suscripcion? suscripcion = await _context.Susripciones.Where(s => s.IdUsuario == idUsuario && s.IdAutor == idAutor).FirstOrDefaultAsync();
+            Suscripcion? suscripcion = await _context.Suscripciones.Where(s => s.IdUsuario == idUsuario && s.IdAutor == idAutor).FirstOrDefaultAsync();
             return suscripcion;
         }
 
         public async Task<bool> YaExisteSuscripcion(Guid idUsuario, int idAutor)
         {
-            Suscripcion? suscripcion = await _context.Susripciones.Where(s => s.IdUsuario == idUsuario && s.IdAutor == idAutor).FirstOrDefaultAsync();
+            Suscripcion? suscripcion = await _context.Suscripciones.Where(s => s.IdUsuario == idUsuario && s.IdAutor == idAutor).FirstOrDefaultAsync();
             bool existe = suscripcion == null ? false : true;
 
             return existe;

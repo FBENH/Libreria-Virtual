@@ -66,7 +66,7 @@ namespace LibreriaVirtualData.Library.Data
                 await _context.Reviews.AddAsync(review);
                 await _context.SaveChangesAsync();                
 
-                libro.Calificacion = (decimal) await _context.Reviews
+                libro.Calificacion = await _context.Reviews
                                                              .Where(r => r.IdLibro == idLibro)
                                                              .AverageAsync(r => (int)r.Calificacion);
 
