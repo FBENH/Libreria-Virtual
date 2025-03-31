@@ -10,9 +10,9 @@ namespace Shared.Library.DTO
 {
     public class AgregarReviewDTO
     {
-        [Required]
+        [Required(ErrorMessage ="El campo Opinion es requerido.")]
         public string Opinion { get; set; }
-        [Required]
+        [Required(ErrorMessage = "El campo Calificacion es requerido.")]
         public Calificacion Calificacion { get; set; }
     }
 }

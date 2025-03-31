@@ -31,5 +31,6 @@ namespace Shared.Library.Mensajes.Mensajes
         public string ErrorConcurrencia { get; set; }
         public string InternalError { get; set; }
         public string ReviewYaExiste { get; set; }
+        public string CampoRequerido { get; set; }
     }
 }

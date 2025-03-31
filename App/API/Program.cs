@@ -1,7 +1,9 @@
 using API.Configurations;
+using API.Filters;
 using API.Helpers;
 using API.Middlewares;
 using LibreriaVirtualData.Library.Context;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Shared.Library.Mensajes.Mensajes;
 
@@ -9,7 +11,10 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers();
+builder.Services.AddControllers(options =>
+{
+    options.Filters.Add<ValidacionModelStateFilter>();
+});
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -17,6 +22,11 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<LibreriaContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DbLibreria"));
+});
+
+builder.Services.Configure<ApiBehaviorOptions>(options =>
+{
+    options.SuppressModelStateInvalidFilter = true;
 });
 
 builder.Services.Configure<MensajesConfiguracion>(builder.Configuration.GetSection("Mensajes"));

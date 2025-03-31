@@ -43,6 +43,7 @@ namespace Shared.Library.Mensajes.Mensajes
                 Mensajes.ErrorConcurrencia => _mensajes.ErrorConcurrencia,
                 Mensajes.InternalError => _mensajes.InternalError,
                 Mensajes.ReviewYaExiste => _mensajes.ReviewYaExiste,
+                Mensajes.CampoRequerido => _mensajes.CampoRequerido,
                 _ => ""
             };
 

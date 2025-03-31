@@ -30,6 +30,7 @@ namespace Shared.Library.Mensajes.Mensajes
         ReviewAgregar,
         ErrorConcurrencia,
         InternalError,
-        ReviewYaExiste
+        ReviewYaExiste,
+        CampoRequerido
     }
 }

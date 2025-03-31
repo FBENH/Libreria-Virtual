@@ -118,7 +118,17 @@ namespace LibreriaVirtualData.Library.Data
                 query = parametros.Sort.Value ? query.OrderBy(r => r.Fecha) : query.OrderByDescending(r => r.Fecha);
             }
 
-            List<Review> reviews = await query.Skip(parametros.Offset).Take(parametros.Limit).ToListAsync();
+            List<BuscarReviewsRespuestaDTO> reviews = await query
+                .Skip(parametros.Offset).Take(parametros.Limit)
+                .Select(r => new BuscarReviewsRespuestaDTO
+                {
+                    NombreLibro = r.Libro.Titulo,
+                    NombreUsuario = r.Usuario.Nombre,
+                    Opinion = r.Opinion,
+                    Calificacion = r.Calificacion,
+                    Fecha = r.Fecha
+                })
+                .ToListAsync();
             resultado.Exito = true;
             resultado.Data.Add(reviews);
             return resultado;

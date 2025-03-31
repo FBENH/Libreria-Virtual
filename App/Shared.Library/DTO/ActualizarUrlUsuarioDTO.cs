@@ -4,7 +4,7 @@ namespace Shared.Library.DTO
 {
     public class ActualizarUrlUsuarioDTO
     {
-        [Required]
+        [Required(ErrorMessage = "El campo Url es requerido.")]
         public string Url { get; set; }        
     }
 }
