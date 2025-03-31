@@ -24,14 +24,10 @@ builder.Services.AddDbContext<LibreriaContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DbLibreria"));
 });
 
-builder.Services.Configure<ApiBehaviorOptions>(options =>
-{
-    options.SuppressModelStateInvalidFilter = true;
-});
 
-builder.Services.Configure<MensajesConfiguracion>(builder.Configuration.GetSection("Mensajes"));
-builder.Services.AddTransient<IManejarRespuestaDeErrorService, ManejarRespuestaDeErrorService>();
-builder.Services.AddTransient<ManejadorExcepcionesMiddleware>();
+builder.Services.AddScoped<IManejarRespuestaDeErrorService, ManejarRespuestaDeErrorService>();
+builder.Services.AddScoped<ManejadorExcepcionesMiddleware>();
+builder.Services.AddConfigurations(builder);
 builder.Services.AddPersistencia();
 builder.Services.AddLogica();
 

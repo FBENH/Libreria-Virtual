@@ -10,14 +10,12 @@ namespace LibreriaVirtualData.Library.Data
 {
     public class AutorData : IAutorData
     {
-        private readonly LibreriaContext _context;
-        private readonly IDataHelper _dataHelper;
+        private readonly LibreriaContext _context;        
         private readonly IMensajesService _mensajes;
         public AutorData(LibreriaContext context, 
             IDataHelper dataHelper, IMensajesService mensajes)
         {
-            _context = context;
-            _dataHelper = dataHelper;
+            _context = context;            
             _mensajes = mensajes;
         }
 

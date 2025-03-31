@@ -47,7 +47,7 @@ namespace LibreriaVirtual.Logica.Services
                 {
                     string textMessage = _mensajes.GetMensaje(Mensajes.EmailBody, [suscriptor.Nombre, autor.Nombre, libro.Titulo, libro.Url]);
                     
-                    _emailSender.SendEmailAsync(fromAddress, suscriptor.Email, subject, textMessage);
+                    await _emailSender.SendEmailAsync(fromAddress, suscriptor.Email, subject, textMessage);
                 }
             }
 
