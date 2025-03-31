@@ -1,10 +1,11 @@
 ﻿using LibreriaVirtualData.Library.Data;
 using LibreriaVirtualData.Library.Data.Helpers;
 using LibreriaVirtualData.Library.Models;
+using Microsoft.Extensions.Configuration;
 using Shared.Library.DTO;
 using Shared.Library.Mensajes.Mensajes;
 
-namespace API.Services
+namespace LibreriaVirtual.Logica.Services
 {
     public class LibroService : ILibroService
     {

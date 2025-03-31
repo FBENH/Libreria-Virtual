@@ -6,7 +6,7 @@ namespace LibreriaVirtualData.Library.Data
 {
     public interface IUsuarioData
     {
-        Task<ResultadoOperacion> RegistrarUsuario(Usuario usuario);
+        Task<ResultadoOperacion> RegistrarUsuario(UsuarioRegistroDTO usuario);
         Task<ResultadoOperacion> CambiarFotoUsuario(Guid idUsuario, ActualizarUrlUsuarioDTO url);
         Task<ResultadoOperacion> EliminarUsuario(Guid idUsuario);
         Task<ResultadoOperacion> SuscribirseAutor(SuscribirseAutorDTO suscripcion);

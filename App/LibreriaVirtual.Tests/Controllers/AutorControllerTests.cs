@@ -1,6 +1,7 @@
 ﻿using API.Controllers;
+using API.Helpers;
 using API.Models.Respuesta;
-using API.Services;
+using LibreriaVirtual.Logica.Services;
 using LibreriaVirtualData.Library.Data.Helpers;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
@@ -46,7 +47,7 @@ namespace LibreriaVirtual.Tests.Controllers
         }        
 
         [Fact]
-        public async Task ObtenerDetallesDeAutor_DeberiaRetornarOk_CuandoSeEncuentraElAutor()
+        public async Task AutorController_ObtenerDetallesDeAutor_ReturnOkCuandoSeEncuentra()
         {
             // Arrange
             int authorId = 1;
@@ -67,7 +68,7 @@ namespace LibreriaVirtual.Tests.Controllers
         }
 
         [Fact]
-        public async Task ObtenerDetallesDeAutor_DeberiaRetornarError_CuandoNoSeEncuentraElAutor()
+        public async Task AutorController_ObtenerDetallesDeAutor_ReturnNotFoundCuandoNoSeEncuentra()
         {
             // Arrange
             int authorId = 1;

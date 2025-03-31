@@ -21,8 +21,16 @@ namespace LibreriaVirtualData.Library.Data
             _mensajes = mensajes;
         }
 
-        public async Task<ResultadoOperacion> RegistrarUsuario(Usuario usuario)
+        public async Task<ResultadoOperacion> RegistrarUsuario(UsuarioRegistroDTO usuario)
         {
+            Usuario nuevoUsuario = new Usuario
+            {
+                Id = usuario.Id,
+                Nombre = usuario.Nombre,
+                Email = usuario.Email,
+                UrlFoto = usuario.UrlFoto
+            };
+
             ResultadoOperacion resultado = new ResultadoOperacion();
             Usuario? us = await _context.Usuarios.Where(u => u.Id == usuario.Id).FirstOrDefaultAsync();
             if (us != null)
@@ -31,7 +39,7 @@ namespace LibreriaVirtualData.Library.Data
                 resultado.StatusCode = HttpStatusCode.Conflict;
                 return resultado;
             }
-            await _context.Usuarios.AddAsync(usuario);
+            await _context.Usuarios.AddAsync(nuevoUsuario);
             await _context.SaveChangesAsync();
             resultado.Exito = true;
             return resultado;

@@ -15,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\LibreriaVirtual.Logica\LibreriaVirtual.Logica.csproj" />
     <ProjectReference Include="..\LibreriaVirtualData.Library\LibreriaVirtualData.Library.csproj" />
     <ProjectReference Include="..\Shared.Library\Shared.Library.csproj" />
   </ItemGroup>

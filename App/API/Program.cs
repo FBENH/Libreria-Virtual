@@ -1,8 +1,7 @@
+using API.Configurations;
+using API.Helpers;
 using API.Middlewares;
-using API.Services;
 using LibreriaVirtualData.Library.Context;
-using LibreriaVirtualData.Library.Data;
-using LibreriaVirtualData.Library.Data.Helpers;
 using Microsoft.EntityFrameworkCore;
 using Shared.Library.Mensajes.Mensajes;
 
@@ -21,20 +20,11 @@ builder.Services.AddDbContext<LibreriaContext>(options =>
 });
 
 builder.Services.Configure<MensajesConfiguracion>(builder.Configuration.GetSection("Mensajes"));
-builder.Services.AddSingleton<IMensajesService, MensajesService>();
-
-builder.Services.AddTransient<IUsuarioData, UsuarioData>();
-builder.Services.AddTransient<IUsuarioService, UsuarioService>();
-builder.Services.AddSingleton<IEmailSender, EmailSender>();
-builder.Services.AddTransient<IAutorData, AutorData>();
-builder.Services.AddTransient<IAutorService, AutorService>();
-builder.Services.AddTransient<ILibroService, LibroService>();
-builder.Services.AddTransient<ILibroData, LibroData>();
-builder.Services.AddTransient<IDataHelper, DataHelper>();
-builder.Services.AddTransient<ManejadorExcepcionesMiddleware>();
 builder.Services.AddTransient<IManejarRespuestaDeErrorService, ManejarRespuestaDeErrorService>();
-builder.Services.AddTransient<IReviewData, ReviewData>();
-builder.Services.AddTransient<IReviewService, ReviewService>();
+builder.Services.AddTransient<ManejadorExcepcionesMiddleware>();
+builder.Services.AddPersistencia();
+builder.Services.AddLogica();
+
 
 var app = builder.Build();
 

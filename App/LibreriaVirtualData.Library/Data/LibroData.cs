@@ -52,16 +52,16 @@ namespace LibreriaVirtualData.Library.Data
             var libros = await query
                 .Skip(queryDto.Offset)
                 .Take(queryDto.Limit)
-                .Select(l => new
+                .Select(l => new BuscarLibrosRespuestaDTO
                 {
                     Titulo = l.Titulo,
                     NombreAutor = l.Autor.Nombre,
                     Editorial = l.Editorial,
                     ISBN = l.ISBN
-                }).ToListAsync<object>();
+                }).ToListAsync();
 
             resultado.Exito = true;
-            resultado.Data = libros;
+            resultado.Data.Add(libros);
             return resultado;
 
         }

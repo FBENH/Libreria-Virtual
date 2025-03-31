@@ -5,6 +5,8 @@ namespace Shared.Library.DTO
     public class UsuarioRegistroDTO
     {
         [Required]
+        public Guid Id { get; set; }
+        [Required]
         [MaxLength(100)]
         public string Nombre { get; set; }
 

@@ -1,4 +1,4 @@
-﻿namespace API.Services
+﻿namespace LibreriaVirtual.Logica.Services
 {
     public interface IEmailSender
     {

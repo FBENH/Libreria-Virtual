@@ -3,7 +3,7 @@ using LibreriaVirtualData.Library.Data.Helpers;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
-namespace API.Services
+namespace API.Helpers
 {
     public class ManejarRespuestaDeErrorService : IManejarRespuestaDeErrorService
     {

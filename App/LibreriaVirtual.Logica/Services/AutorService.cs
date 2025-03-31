@@ -3,7 +3,7 @@ using LibreriaVirtualData.Library.Data.Helpers;
 using LibreriaVirtualData.Library.Models;
 using Shared.Library.DTO;
 
-namespace API.Services
+namespace LibreriaVirtual.Logica.Services
 {
     public class AutorService : IAutorService
     {

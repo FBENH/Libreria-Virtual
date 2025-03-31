@@ -47,7 +47,12 @@ namespace LibreriaVirtualData.Library.Data
                         Nacionalidad = a.Nacionalidad,
                         FechaNacimiento = a.FechaNacimiento,
                         CantidadSuscritos = a.Suscripciones.Count(),
-                        Libros = a.Libros
+                        Libros = a.Libros.Select(l => new
+                        {
+                            ISBN = l.ISBN,
+                            Titulo = l.Titulo,
+                            FechaPublicacion = l.FechaPublicacion
+                        }).ToList()
                     }).FirstOrDefaultAsync();                
 
             if (a == null)

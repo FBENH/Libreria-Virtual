@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity.UI.Services;
-
-namespace API.Services
+﻿namespace LibreriaVirtual.Logica.Services
 {
     public class EmailSender : IEmailSender
     {        

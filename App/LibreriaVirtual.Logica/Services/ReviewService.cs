@@ -2,7 +2,7 @@
 using LibreriaVirtualData.Library.Data.Helpers;
 using Shared.Library.DTO;
 
-namespace API.Services
+namespace LibreriaVirtual.Logica.Services
 {
     public class ReviewService : IReviewService
     {

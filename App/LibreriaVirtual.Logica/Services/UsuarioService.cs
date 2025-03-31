@@ -1,9 +1,8 @@
 ﻿using LibreriaVirtualData.Library.Data;
 using LibreriaVirtualData.Library.Data.Helpers;
-using LibreriaVirtualData.Library.Models;
 using Shared.Library.DTO;
 
-namespace API.Services
+namespace LibreriaVirtual.Logica.Services
 {
     public class UsuarioService : IUsuarioService
     {
@@ -15,14 +14,7 @@ namespace API.Services
         }
         public async Task<ResultadoOperacion> RegistrarUsuario(UsuarioRegistroDTO usuario)
         {
-            Usuario nuevoUsuario = new Usuario
-            {
-                Nombre = usuario.Nombre,
-                Email = usuario.Email,
-                UrlFoto = usuario.UrlFoto
-            };
-
-            ResultadoOperacion resultado = await _repositorioUsuarios.RegistrarUsuario(nuevoUsuario);
+            ResultadoOperacion resultado = await _repositorioUsuarios.RegistrarUsuario(usuario);
             return resultado;
         }
 
