@@ -29,15 +29,15 @@ namespace API.Configurations
             if (!context.Libros.Any())
             {
                 context.Libros.AddRange(
-                    new Libro { Titulo = "Cuentos de la selva", Paginas = 120, Editorial = "Losada", ISBN = "978-987-566-882-0", FechaPublicacion = new DateTime(1918, 1, 1), Calificacion = 4.5, IdAutor = 1 },
-                    new Libro { Titulo = "El almohadón de plumas", Paginas = 80, Editorial = "Planeta", ISBN = "978-950-742-400-6", FechaPublicacion = new DateTime(1917, 1, 1), Calificacion = 4.3, IdAutor = 1 },
-                    new Libro { Titulo = "Anaconda", Paginas = 150, Editorial = "Emece", ISBN = "978-950-039-452-8", FechaPublicacion = new DateTime(1921, 1, 1), Calificacion = 4.4, IdAutor = 1 },
-                    new Libro { Titulo = "Ficciones", Paginas = 174, Editorial = "Emece", ISBN = "978-950-039-023-0", FechaPublicacion = new DateTime(1944, 1, 1), Calificacion = 4.8, IdAutor = 2 },
-                    new Libro { Titulo = "El Aleph", Paginas = 180, Editorial = "Alianza", ISBN = "978-842066800-2", FechaPublicacion = new DateTime(1949, 1, 1), Calificacion = 4.7, IdAutor = 2 },
-                    new Libro { Titulo = "El libro de arena", Paginas = 190, Editorial = "Debolsillo", ISBN = "978-987-1138-61-4", FechaPublicacion = new DateTime(1975, 1, 1), Calificacion = 4.6, IdAutor = 2 },
-                    new Libro { Titulo = "Cien años de soledad", Paginas = 417, Editorial = "Sudamericana", ISBN = "978-843760494-7", FechaPublicacion = new DateTime(1967, 1, 1), Calificacion = 4.9, IdAutor = 3 },
-                    new Libro { Titulo = "El amor en los tiempos del cólera", Paginas = 368, Editorial = "Diana", ISBN = "978-030738714-1", FechaPublicacion = new DateTime(1985, 1, 1), Calificacion = 4.8, IdAutor = 3 },
-                    new Libro { Titulo = "Crónica de una muerte anunciada", Paginas = 144, Editorial = "Mondadori", ISBN = "978-987-566-457-9", FechaPublicacion = new DateTime(1981, 1, 1), Calificacion = 4.7, IdAutor = 3 }
+                    new Libro { Titulo = "Cuentos de la selva", Paginas = 120, Editorial = "Losada", ISBN = "978-987-566-882-0", FechaPublicacion = new DateTime(1918, 1, 1), Calificacion = 4.5, IdAutor = 1, Url = "url1.com" },
+                    new Libro { Titulo = "El almohadón de plumas", Paginas = 80, Editorial = "Planeta", ISBN = "978-950-742-400-6", FechaPublicacion = new DateTime(1917, 1, 1), Calificacion = 4.3, IdAutor = 1, Url = "url2.com" },
+                    new Libro { Titulo = "Anaconda", Paginas = 150, Editorial = "Emece", ISBN = "978-950-039-452-8", FechaPublicacion = new DateTime(1921, 1, 1), Calificacion = 4.4, IdAutor = 1, Url = "url3.com" },
+                    new Libro { Titulo = "Ficciones", Paginas = 174, Editorial = "Emece", ISBN = "978-950-039-023-0", FechaPublicacion = new DateTime(1944, 1, 1), Calificacion = 4.8, IdAutor = 2, Url = "url4.com" },
+                    new Libro { Titulo = "El Aleph", Paginas = 180, Editorial = "Alianza", ISBN = "978-842066800-2", FechaPublicacion = new DateTime(1949, 1, 1), Calificacion = 4.7, IdAutor = 2, Url = "url5.com" },
+                    new Libro { Titulo = "El libro de arena", Paginas = 190, Editorial = "Debolsillo", ISBN = "978-987-1138-61-4", FechaPublicacion = new DateTime(1975, 1, 1), Calificacion = 4.6, IdAutor = 2, Url = "url6.com" },
+                    new Libro { Titulo = "Cien años de soledad", Paginas = 417, Editorial = "Sudamericana", ISBN = "978-843760494-7", FechaPublicacion = new DateTime(1967, 1, 1), Calificacion = 4.9, IdAutor = 3, Url = "url7.com" },
+                    new Libro { Titulo = "El amor en los tiempos del cólera", Paginas = 368, Editorial = "Diana", ISBN = "978-030738714-1", FechaPublicacion = new DateTime(1985, 1, 1), Calificacion = 4.8, IdAutor = 3, Url = "url8.com" },
+                    new Libro { Titulo = "Crónica de una muerte anunciada", Paginas = 144, Editorial = "Mondadori", ISBN = "978-987-566-457-9", FechaPublicacion = new DateTime(1981, 1, 1), Calificacion = 4.7, IdAutor = 3, Url = "url9.com" }
                 );
                 context.SaveChanges();
             }
